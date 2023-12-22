@@ -11,6 +11,3 @@ script = ExtResource("1_cx4wr")
 animation_sprite = NodePath("../Poses")
 
 [node name="Poses" parent="." instance=ExtResource("2_uc811")]
-position = Vector2(304, 134)
-frame = 1
-frame_progress = 0.275397

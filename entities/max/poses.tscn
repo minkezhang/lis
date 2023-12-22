@@ -58,7 +58,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_north",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -66,7 +66,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_south",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -74,7 +74,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_west",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -91,7 +91,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk_north",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -108,7 +108,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk_south",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -125,11 +125,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk_west",
-"speed": 4.0
+"speed": 6.0
 }]
 
 [node name="Poses" type="AnimatedSprite2D"]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_pbi8t")
-animation = &"walk_west"
-frame_progress = 0.728916
+animation = &"walk_north"
+frame_progress = 0.534123

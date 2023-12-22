@@ -46,7 +46,6 @@ func set_state(pose: Pose = _pose, face: Face = _face):
 
 
 func _ready():
-    
     assert(animation_sprite != null, "Property animation_sprite must be non-null")
     
     for l in _ANIMATION_LOOPS:
