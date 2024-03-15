@@ -11,3 +11,5 @@ script = ExtResource("1_cx4wr")
 animation_sprite = NodePath("../Poses")
 
 [node name="Poses" parent="." instance=ExtResource("2_uc811")]
+animation = &"idle_west"
+frame_progress = 0.0

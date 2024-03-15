@@ -8,7 +8,7 @@ var _POSE_LOOKUP = {
     Pose.WALK: "walk",
 }
 
-var _FACE_LOOKUP = {
+var _FACE_LOOKUP = {    
     Face.NORTH: "north",
     Face.SOUTH: "south",
     Face.EAST: "west",  # AnimationLibrary will be flipped
