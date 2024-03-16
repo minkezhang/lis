@@ -1,12 +1,12 @@
 extends Node2D
 
-const _libgeo = preload("res://lib/geo.gd")
-const _libpose = preload("res://lib/pose.gd")
+const _libgeo = preload('res://lib/geo.gd')
+const _libpose = preload('res://lib/pose.gd')
 
 const _GRID_SIZE = 16
 const _GRID_CENTER_OFFSET = Vector2(_GRID_SIZE, _GRID_SIZE) / 2
 const _SPEED = 3.0
-const _POLL_RATE_LIMIT = 10.0
+const _POLL_RATE_LIMIT = 15.0
 
 @onready var _p = $Poseable
 
@@ -58,16 +58,16 @@ func _handle_input(delta):
 	
 	_delta_accum = 0
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed('ui_right'):
 		_path_queue.enqueue(_libgeo.Orientation.E)
 	
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed('ui_left'):
 		_path_queue.enqueue(_libgeo.Orientation.W)
 	
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed('ui_up'):
 		_path_queue.enqueue(_libgeo.Orientation.N)
 	
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed('ui_down'):
 		_path_queue.enqueue(_libgeo.Orientation.S)
 
 
@@ -80,17 +80,17 @@ func _process(delta):
 		# Only stop animation if no subsequent movement is queued. This allows for smoother animation for continuous movement in one direction.
 		if not r['success']:
 			_p.set_state(_libpose.Pose.IDLE)
+		elif _p.get_state()['pose'] == _libpose.Pose.IDLE and _p.get_state()['orientation'] != r['orientation']:
+			_p.set_state(_libpose.Pose.IDLE, r['orientation'])
 		else:
 			# Allow user to face a direction before moving.
-			var is_walk_pose = _p.get_state()["orientation"] == r["orientation"]
-			_p.set_state(_libpose.Pose.WALK if is_walk_pose else _libpose.Pose.IDLE, r["orientation"])
+			_p.set_state(_libpose.Pose.WALK, r['orientation'])
 			
-			if is_walk_pose:
-				_tween = get_tree().create_tween()
-				_tween.tween_property(
-					self,
-					"position",
-					_grid_to_position(Vector2(_position_to_grid(position)) + _libgeo.ORIENTATION_RAY[r['orientation']]),
-					1.0 / _SPEED,
-				)
-				_tween.play()
+			_tween = get_tree().create_tween()
+			_tween.tween_property(
+				self,
+				'position',
+				_grid_to_position(Vector2(_position_to_grid(position)) + _libgeo.ORIENTATION_RAY[r['orientation']]),
+				1.0 / _SPEED,
+			)
+			_tween.play()

@@ -1,20 +1,20 @@
 extends Node2D
 
-const _libpose = preload("res://lib/pose.gd")
-const _libgeo = preload("res://lib/geo.gd")
+const _libpose = preload('res://lib/pose.gd')
+const _libgeo = preload('res://lib/geo.gd')
 
 var _ANIMATION_STRING = [
-	"idle_north",
-	"idle_south",
-	"idle_west",
-	"walk_north",
-	"walk_south",
-	"walk_west",
+	'idle_north',
+	'idle_south',
+	'idle_west',
+	'walk_north',
+	'walk_south',
+	'walk_west',
 ]
 
 var _orientation: _libgeo.Orientation = _libgeo.Orientation.S
 var _pose: _libpose.Pose = _libpose.Pose.IDLE
-var _loop: String  = "idle_south"
+var _loop: String  = 'idle_south'
 var _is_dirty = false
 
 @export var animation_sprite: AnimatedSprite2D
@@ -27,23 +27,23 @@ func set_state(p: _libpose.Pose = _pose, o: _libgeo.Orientation = _orientation):
 
 	_orientation = o
 	_pose = p
-	_loop = "{p}_{o}".format({
-		"p": _libpose.POSE_STRING[p],
-		"o": _libpose.POSE_ORIENTATION_STRING[o],
+	_loop = '{p}_{o}'.format({
+		'p': _libpose.POSE_STRING[p],
+		'o': _libpose.POSE_ORIENTATION_STRING[o],
 	})
 
 
 func get_state() -> Dictionary:
 	return {
-		"orientation": _orientation,
-		"pose": _pose,
+		'orientation': _orientation,
+		'pose': _pose,
 	}
 
 
 func _ready():
-	assert(animation_sprite != null, "Property animation_sprite must be non-null")
+	assert(animation_sprite != null, 'Property animation_sprite must be non-null')
 	for l in _ANIMATION_STRING:
-		assert(animation_sprite.sprite_frames.has_animation(l), "Property animation_sprite does not contain the expected animation loops: {}".format([l]))
+		assert(animation_sprite.sprite_frames.has_animation(l), 'Property animation_sprite does not contain the expected animation loops: {}'.format([l]))
 
 
 func _process(_delta):
