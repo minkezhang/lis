@@ -5,7 +5,14 @@ const _libpose = preload("res://lib/pose.gd")
 
 const _GRID_SIZE = 16
 const _GRID_CENTER_OFFSET = Vector2(_GRID_SIZE, _GRID_SIZE) / 2
-const _SPEED = _GRID_SIZE
+const _SPEED = 3.0
+const _POLL_RATE_LIMIT = 10.0
+
+@onready var _p = $Poseable
+
+var _tween: Tween
+var _path_queue: _PathQueue = _PathQueue.new()
+var _delta_accum: float = 0.0
 
 
 static func _position_to_grid(p: Vector2) -> Vector2i:
@@ -14,11 +21,6 @@ static func _position_to_grid(p: Vector2) -> Vector2i:
 
 static func _grid_to_position(g: Vector2i) -> Vector2:
 	return Vector2(g) * _GRID_SIZE - _GRID_CENTER_OFFSET
-
-@onready var _p = $Poseable
-@onready var _tween: Tween
-
-var _path_queue = _PathQueue.new()
 
 
 class _PathQueue:
@@ -49,7 +51,29 @@ class _PathQueue:
 		}
 
 
-func _process(_delta):
+func _handle_input(delta):
+	if _delta_accum + delta < 1.0 / _POLL_RATE_LIMIT:
+		_delta_accum += delta
+		return
+	
+	_delta_accum = 0
+	
+	if Input.is_action_pressed("ui_right"):
+		_path_queue.enqueue(_libgeo.Orientation.E)
+	
+	if Input.is_action_pressed("ui_left"):
+		_path_queue.enqueue(_libgeo.Orientation.W)
+	
+	if Input.is_action_pressed("ui_up"):
+		_path_queue.enqueue(_libgeo.Orientation.N)
+	
+	if Input.is_action_pressed("ui_down"):
+		_path_queue.enqueue(_libgeo.Orientation.S)
+
+
+func _process(delta):
+	_handle_input(delta)
+
 	if _tween == null or not _tween.is_valid():
 		var r = _path_queue.dequeue()
 		
@@ -67,20 +91,6 @@ func _process(_delta):
 					self,
 					"position",
 					_grid_to_position(Vector2(_position_to_grid(position)) + _libgeo.ORIENTATION_RAY[r['orientation']]),
-					0.25,
+					1.0 / _SPEED,
 				)
 				_tween.play()
-
-
-func _input(event):
-	if event.is_action_pressed("ui_right"):
-		_path_queue.enqueue(_libgeo.Orientation.E)
-
-	if event.is_action_pressed("ui_left"):
-		_path_queue.enqueue(_libgeo.Orientation.W)
-
-	if event.is_action_pressed("ui_up"):
-		_path_queue.enqueue(_libgeo.Orientation.N)
-
-	if event.is_action_pressed("ui_down"):
-		_path_queue.enqueue(_libgeo.Orientation.S)
