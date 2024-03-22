@@ -1,5 +1,17 @@
 extends Node2D
 
+##
+# Max
+# |- _process() enqueue / dequeue
+# |- Poseable
+#    |- set_state
+# |- Walkable
+#    |- var path_queue: PathQueue
+#    |- enqueue_path
+# |- Controllable
+#    |- _input
+#    |- signal enqueue_input(o: Orientation)
+
 const _libgeo = preload('res://lib/geo.gd')
 const _libpose = preload('res://lib/pose.gd')
 const _libpathqueue = preload('res://lib/pathqueue.gd')
