@@ -32,7 +32,7 @@ var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _GRI
 
 
 func _ready():
-	_c.action_north.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.N))
-	_c.action_south.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.S))
-	_c.action_east.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.E))
-	_c.action_west.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.W))
+	_c.input_north.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.N))
+	_c.input_south.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.S))
+	_c.input_east.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.E))
+	_c.input_west.connect(func(): _w.path_queue.enqueue(_libgeo.Orientation.W))

@@ -1,9 +1,9 @@
 extends Node2D
 
-signal action_north
-signal action_south
-signal action_east
-signal action_west
+signal input_north
+signal input_south
+signal input_east
+signal input_west
 
 const _POLL_RATE_HZ: float = 10
 const _POLL_RATE_DELTA: float = 1.0 / _POLL_RATE_HZ
@@ -19,10 +19,10 @@ func _process(delta):
 	_delta_accum = 0
 	
 	if Input.is_action_pressed('ui_right'):
-		action_east.emit()
+		input_east.emit()
 	if Input.is_action_pressed('ui_left'):
-		action_west.emit()
+		input_west.emit()
 	if Input.is_action_pressed('ui_up'):
-		action_north.emit()
+		input_north.emit()
 	if Input.is_action_pressed('ui_down'):
-		action_south.emit()
+		input_south.emit()
