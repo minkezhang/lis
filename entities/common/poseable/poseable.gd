@@ -4,8 +4,6 @@ class_name Poseable
 const _libpose = preload('res://lib/pose.gd')
 const _libgeo = preload('res://lib/geo.gd')
 
-@export var animation_sprite: AnimatedSprite2D
-
 var _ANIMATION_STRING = [
 	'idle_north',
 	'idle_south',
@@ -20,6 +18,8 @@ var _pose: _libpose.Pose = _libpose.Pose.IDLE
 var _loop: String  = 'idle_south'
 var _is_dirty = false
 
+var animation_sprite: AnimatedSprite2D
+
 
 func _ready():
 	assert(animation_sprite != null, 'Property animation_sprite must be non-null')
@@ -30,7 +30,6 @@ func _ready():
 func _process(_delta):
 	if not _is_dirty:
 		return
-
 	animation_sprite.play(_loop)
 
 

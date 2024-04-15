@@ -5,7 +5,7 @@ signal input_south
 signal input_east
 signal input_west
 
-const _POLL_RATE_HZ: float = 10
+const _POLL_RATE_HZ: float = 5
 const _POLL_RATE_DELTA: float = 1.0 / _POLL_RATE_HZ
 
 var _delta_accum: float = 0
