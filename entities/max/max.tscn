@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://entities/common/controllable/controllable.gd" id="4_hlj0h"]
 
 [node name="Max" type="Node2D" node_paths=PackedStringArray("animation_sprite")]
+z_index = 4
+y_sort_enabled = true
 script = ExtResource("1_cx4wr")
 animation_sprite = NodePath("Poses")
 

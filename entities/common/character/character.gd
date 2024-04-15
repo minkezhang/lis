@@ -1,5 +1,11 @@
 extends Node2D
 class_name Character
+## Base character class.
+##
+## N.B.: z-index is set to the same z-index as the world's DecorationOverlay, as
+## this layer contains e.g. treetop tiles. Setting z-index as relative means the
+## z-index is calculated from the TileMap's z-index (notably, not from the
+## individual layer's z-index).
 
 const _libposeable = preload('res://entities/common/poseable/poseable.tscn')
 const _libpathqueue = preload('res://lib/pathqueue.gd')
