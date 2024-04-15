@@ -1,23 +1,20 @@
 extends Node2D
 
-signal state_idle
-
-const Poseable = preload('res://entities/common/poseable/poseable.tscn')
 const _libpathqueue = preload('res://lib/pathqueue.gd')
 const _libpose = preload('res://lib/pose.gd')
 const _libgeo = preload('res://lib/geo.gd')
 
 var _tween: Tween
+var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _GRID_SIZE)
 
 const _GRID_SIZE = 16
 const _GRID_CENTER_OFFSET = Vector2(_GRID_SIZE, _GRID_SIZE) / 2
 const _SPEED = 3.0
 const _POLL_RATE_LIMIT = 15.0
 
-@export var poseable: Node2D
+@export var poseable: Poseable
 
 var path_queue: _libpathqueue.PathQueue
-var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _GRID_SIZE)
 
 
 func _ready():

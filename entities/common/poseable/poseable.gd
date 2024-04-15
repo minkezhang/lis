@@ -1,4 +1,5 @@
 extends Node2D
+class_name Poseable
 
 const _libpose = preload('res://lib/pose.gd')
 const _libgeo = preload('res://lib/geo.gd')
