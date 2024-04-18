@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://di7d2i5j3myww"]
+[gd_scene load_steps=6 format=3 uid="uid://di7d2i5j3myww"]
 
 [ext_resource type="Script" path="res://entities/max/max.gd" id="1_cx4wr"]
 [ext_resource type="PackedScene" uid="uid://cfr4en3phi8et" path="res://entities/max/poses.tscn" id="2_uc811"]
 [ext_resource type="PackedScene" uid="uid://co1vmlkfp00f5" path="res://entities/common/controllable/controllable.tscn" id="3_ybi75"]
 [ext_resource type="Script" path="res://entities/common/controllable/controllable.gd" id="4_hlj0h"]
+[ext_resource type="Script" path="res://entities/common/character/character.gd" id="4_xp52x"]
 
-[node name="Max" type="Node2D" node_paths=PackedStringArray("animation_sprite")]
-z_index = 4
-y_sort_enabled = true
+[node name="Max" type="Node2D"]
 script = ExtResource("1_cx4wr")
-animation_sprite = NodePath("Poses")
 
 [node name="Controllable" parent="." instance=ExtResource("3_ybi75")]
 script = ExtResource("4_hlj0h")
+
+[node name="Character" type="Node2D" parent="." node_paths=PackedStringArray("animation_sprite")]
+script = ExtResource("4_xp52x")
+animation_sprite = NodePath("../Poses")
 
 [node name="Poses" parent="." instance=ExtResource("2_uc811")]
 animation = &"idle_west"

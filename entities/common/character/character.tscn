@@ -3,6 +3,5 @@
 [ext_resource type="Script" path="res://entities/common/character/character.gd" id="1_fi3pf"]
 
 [node name="Character" type="Node2D"]
-z_index = 4
 y_sort_enabled = true
 script = ExtResource("1_fi3pf")

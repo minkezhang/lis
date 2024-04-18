@@ -2,10 +2,9 @@ extends Node2D
 class_name Character
 ## Base character class.
 ##
-## N.B.: z-index is set to the same z-index as the world's DecorationOverlay, as
-## this layer contains e.g. treetop tiles. Setting z-index as relative means the
-## z-index is calculated from the TileMap's z-index (notably, not from the
-## individual layer's z-index).
+## N.B.: z-index for instantiated scenes needs to be set between the z-indices
+## of the World Decoration and DecorationOverlay layers, as the
+## DecorationOverlay layer contains e.g. treetop tiles.
 
 const _libposeable = preload('res://entities/common/poseable/poseable.tscn')
 const _libpathqueue = preload('res://lib/pathqueue.gd')
@@ -18,7 +17,7 @@ var _tween: Tween
 var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _GRID_SIZE)
 
 const _GRID_SIZE = 16
-const _GRID_CENTER_OFFSET = Vector2(_GRID_SIZE, _GRID_SIZE) / 2
+const _GRID_CENTER_OFFSET = Vector2(0, _GRID_SIZE) / 2
 const _SPEED = 3.0
 const _POLL_RATE_LIMIT = 15.0
 
@@ -31,7 +30,6 @@ func _ready():
 	_p = _libposeable.instantiate()
 	_p.animation_sprite = animation_sprite
 	add_child(_p)
-	
 	path_queue = _libpathqueue.PathQueue.new(1)
 
 
@@ -48,12 +46,11 @@ func _process(_delta):
 		else:
 			# Allow user to face a direction before moving.
 			_p.set_state(_libpose.Pose.WALK, r.orientation)
-			
 			_tween = get_tree().create_tween()
 			_tween.tween_property(
-				self,
+				animation_sprite,
 				'position',
-				_gp.to_world(Vector2(_gp.to_grid(position)) + _libgeo.ORIENTATION_RAY[r.orientation]),
+				_gp.to_world(Vector2(_gp.to_grid(animation_sprite.position)) + _libgeo.ORIENTATION_RAY[r.orientation]),
 				1.0 / _SPEED,
 			)
 			_tween.play()
