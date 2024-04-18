@@ -3,10 +3,16 @@ extends Node2D
 const _libgeotest = preload('res://lib/geo_test.gd')
 
 
-var _TEST_SUITES = [{
-	'name': 'geo.GeoPosition.to_grid',
-	'test_suite': func(): return _libgeotest.Test.new().to_grid(),
-}]
+var _TEST_SUITES = [
+	{
+		'name': 'geo.GeoPosition.to_grid',
+		'test_suite': func(): return _libgeotest.Test.new().to_grid(),
+	},
+	{
+		'name': 'geo.GeoPosition.to_world',
+		'test_suite': func(): return _libgeotest.Test.new().to_world(),
+	},
+]
 
 func _ready():
 	for s in _TEST_SUITES:
