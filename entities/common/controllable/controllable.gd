@@ -1,9 +1,8 @@
 extends Node2D
 
-signal input_north
-signal input_south
-signal input_east
-signal input_west
+const _libgeo = preload('res://lib/geo.gd')
+
+signal input_move(direction: _libgeo.Orientation)
 
 const _POLL_RATE_HZ: float = 8
 const _POLL_RATE_DELTA: float = 1.0 / _POLL_RATE_HZ
@@ -19,14 +18,14 @@ func _process(delta):
 	_delta_accum = max(_delta_accum, 1)
 	
 	if Input.is_action_pressed('ui_right'):
-		input_east.emit()
+		input_move.emit(_libgeo.Orientation.E)
 		_delta_accum = 0
 	if Input.is_action_pressed('ui_left'):
-		input_west.emit()
+		input_move.emit(_libgeo.Orientation.W)
 		_delta_accum = 0
 	if Input.is_action_pressed('ui_up'):
-		input_north.emit()
+		input_move.emit(_libgeo.Orientation.N)
 		_delta_accum = 0
 	if Input.is_action_pressed('ui_down'):
-		input_south.emit()
+		input_move.emit(_libgeo.Orientation.S)
 		_delta_accum = 0

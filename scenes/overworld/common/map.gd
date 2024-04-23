@@ -7,4 +7,4 @@ func grid(n: Node2D) -> Vector2i:
 	return Vector2i(to_local(n.global_position)) / _libgeo.GRID_DIMENSION
 
 func _ready():
-	print(grid($Characters/Max))
+	print("DEBUG(map.gd): ", grid($Characters/Max))

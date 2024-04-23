@@ -25,10 +25,6 @@ var _p: Poseable
 var path_queue: _libpathqueue.PathQueue
 
 
-func grid() -> Vector2i:
-	return Vector2i(animation_sprite.global_position) / 16
-
-
 func _ready():
 	_p = _libposeable.instantiate()
 	_p.animation_sprite = animation_sprite
@@ -47,7 +43,6 @@ func _process(_delta):
 		elif _p.get_state().pose == _libpose.Pose.IDLE and _p.get_state().orientation != r.orientation:
 			_p.set_state(_libpose.Pose.IDLE, r.orientation)
 		else:
-			print("current grid: ", grid())
 			# Allow user to face a direction before moving.
 			_p.set_state(_libpose.Pose.WALK, r.orientation)
 			_tween = get_tree().create_tween()
