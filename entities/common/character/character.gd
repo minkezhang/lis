@@ -14,16 +14,19 @@ const _libgeo = preload('res://lib/geo.gd')
 @export var animation_sprite: AnimatedSprite2D
 
 var _tween: Tween
-var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _GRID_SIZE)
+var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _libgeo.GRID_DIMENSION)
 
-const _GRID_SIZE = 16
-const _GRID_CENTER_OFFSET = Vector2(0, _GRID_SIZE) / 2
+const _GRID_CENTER_OFFSET = Vector2(0, _libgeo.GRID_DIMENSION) / 2
 const _SPEED = 3.0
 const _POLL_RATE_LIMIT = 15.0
 
 var _p: Poseable
 
 var path_queue: _libpathqueue.PathQueue
+
+
+func grid() -> Vector2i:
+	return Vector2i(animation_sprite.global_position) / 16
 
 
 func _ready():
@@ -44,6 +47,7 @@ func _process(_delta):
 		elif _p.get_state().pose == _libpose.Pose.IDLE and _p.get_state().orientation != r.orientation:
 			_p.set_state(_libpose.Pose.IDLE, r.orientation)
 		else:
+			print("current grid: ", grid())
 			# Allow user to face a direction before moving.
 			_p.set_state(_libpose.Pose.WALK, r.orientation)
 			_tween = get_tree().create_tween()

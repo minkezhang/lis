@@ -2,6 +2,10 @@ extends Object
 
 enum Orientation { N, S, E, W }
 
+# Global constant representing the tile dimension. Notably, all sprites must be
+# scaled to this dimension.
+const GRID_DIMENSION = 16
+
 const ORIENTATION_RAY = {
 	Orientation.N: Vector2.UP,
 	Orientation.S: Vector2.DOWN,

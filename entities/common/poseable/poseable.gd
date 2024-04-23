@@ -21,10 +21,16 @@ var _is_dirty = false
 var animation_sprite: AnimatedSprite2D
 
 
-func _ready():
-	assert(animation_sprite != null, 'Property animation_sprite must be non-null')
+func _validate_animation_sprite(s: AnimatedSprite2D):
+	assert(s != null, 'Property animation_sprite must be non-null')
 	for l in _ANIMATION_STRING:
-		assert(animation_sprite.sprite_frames.has_animation(l), 'Property animation_sprite does not contain the expected animation loops: {}'.format([l]))
+		assert(
+			s.sprite_frames.has_animation(l),
+			'Property animation_sprite does not contain the expected animation loops: {}'.format([l]))
+
+
+func _ready():
+	_validate_animation_sprite(animation_sprite)
 
 
 func _process(_delta):
