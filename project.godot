@@ -13,6 +13,10 @@ config_version=5
 config/name="Life is Strange"
 config/features=PackedStringArray("4.2", "Mobile")
 
+[autoload]
+
+SignalBus="*res://lib/signal_bus.gd"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
