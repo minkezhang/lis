@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crwd40pehy5rq"
-path="res://.godot/imported/pathing.png-af3a3416edd76a14766dc85acaaa22b0.ctex"
+path="res://.godot/imported/pathing.png-0aee89b4eeba4cd9ad69ffe4b62bd10b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/assets/pathing.png"
-dest_files=["res://.godot/imported/pathing.png-af3a3416edd76a14766dc85acaaa22b0.ctex"]
+source_file="res://scenes/overworld/map/assets/pathing.png"
+dest_files=["res://.godot/imported/pathing.png-0aee89b4eeba4cd9ad69ffe4b62bd10b.ctex"]
 
 [params]
 

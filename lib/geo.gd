@@ -13,7 +13,6 @@ const ORIENTATION_RAY = {
 	Orientation.W: Vector2.LEFT,
 }
 
-
 class GeoPosition:
 	var _grid_center_offset: Vector2
 	var _grid_dimension: int
