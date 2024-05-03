@@ -17,7 +17,6 @@ func _ready():
 	var o = {}
 	
 	for t in get_used_cells(0):
-		print("tile = %s, atlas_coords = %s" % [t, get_cell_atlas_coords(0, t)])
 		o[t] = true
 	
 	_obstacles = _libobstacle.Obstacle.new(o)
