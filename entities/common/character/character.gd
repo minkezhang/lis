@@ -30,12 +30,17 @@ func _ready():
 	_p.animation_sprite = animation_sprite
 	add_child(_p)
 	path_queue = _libpathqueue.PathQueue.new(1)
+	SignalBus.character_created.emit(self, _global_grid_position())
 
 
-func animate_move(o: _libgeo.Orientation, is_clear: bool):
-	var source = _gp.to_grid(position)
-	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_clear else source
-	var duration = (1.0 if is_clear else 0.5) / _SPEED
+func _global_grid_position():
+	return _gp.to_grid(global_position)
+
+
+func animate_move(o: _libgeo.Orientation, is_valid: bool):
+	var source = _global_grid_position()
+	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_valid else source
+	var duration = (1.0 if is_valid else 0.5) / _SPEED
 	_p.set_state(_libpose.Pose.WALK, o)
 	_tween = get_tree().create_tween()
 	_tween.tween_property(
@@ -44,7 +49,8 @@ func animate_move(o: _libgeo.Orientation, is_clear: bool):
 		_gp.to_world(target),
 		duration,
 	)
-	_tween.tween_callback(func(): SignalBus.move_ended.emit(self))
+	if is_valid:
+		_tween.tween_callback(func(): SignalBus.move_ended.emit(self, target))
 	_tween.play()
 
 
@@ -62,6 +68,6 @@ func _process(_delta):
 			# Allow user to face a direction before moving.
 			_p.set_state(_libpose.Pose.WALK, r.orientation)
 			
-			var source = _gp.to_grid(global_position)
+			var source = _global_grid_position()
 			var target = source + Vector2i(_libgeo.ORIENTATION_RAY[r.orientation])
 			SignalBus.move_started.emit(self, r.orientation, source, target)
