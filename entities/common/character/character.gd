@@ -16,7 +16,7 @@ const _libgeo = preload('res://lib/geo.gd')
 var _tween: Tween
 var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _libgeo.GRID_DIMENSION)
 
-const _GRID_CENTER_OFFSET = Vector2(-_libgeo.GRID_DIMENSION, -_libgeo.GRID_DIMENSION) / 2
+const _GRID_CENTER_OFFSET = Vector2(_libgeo.GRID_DIMENSION, _libgeo.GRID_DIMENSION) / 2
 const _SPEED = 3.0
 const _POLL_RATE_LIMIT = 15.0
 

@@ -30,21 +30,21 @@ class Test:
 				'name': 'TestOffset/Border',
 				'c': Vector2i(8, 8),
 				'd': 16,
-				'w': Vector2(7, 7),
+				'w': Vector2(15, 15),
 				'want': Vector2i(0, 0),
 			},
 			{
 				'name': 'TestOffset/Adjacent/X',
 				'c': Vector2i(8, 8),
 				'd': 16,
-				'w': Vector2(8, 0),
+				'w': Vector2(16, 0),
 				'want': Vector2i(1, 0),
 			},
 			{
 				'name': 'TestOffset/Adjacent/Diagonal',
 				'c': Vector2i(8, 8),
 				'd': 16,
-				'w': Vector2(8, 8),
+				'w': Vector2(16, 16),
 				'want': Vector2i(1, 1),
 			},
 			{
@@ -97,7 +97,7 @@ class Test:
 				'name': 'TestOffset',
 				'c': Vector2(8, 8),
 				'd': 16,
-				'g': Vector2i(1, 1),
+				'g': Vector2i(0, 0),
 				'want': Vector2(8, 8),
 			},
 		]

@@ -22,7 +22,7 @@ class GeoPosition:
 		_grid_dimension = d
 	
 	func to_grid(w: Vector2) -> Vector2i:
-		return Vector2i(((w + _grid_center_offset) / _grid_dimension).floor())
+		return Vector2i(((w) / _grid_dimension).floor())
 	
 	func to_world(g: Vector2i) -> Vector2:
-		return Vector2(g) * _grid_dimension - _grid_center_offset
+		return Vector2(g) * _grid_dimension + _grid_center_offset
