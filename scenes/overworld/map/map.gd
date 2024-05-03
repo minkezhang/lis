@@ -13,6 +13,5 @@ func _move_pushed_handler(
 
 
 func _ready():
-	SignalBus.move_requested.connect(func(c: Character, o: _libgeo.Orientation): c.path_queue.enqueue(o))
 	SignalBus.move_started.connect(_move_pushed_handler)
 	SignalBus.move_ended.connect(func(c: Character): null)
