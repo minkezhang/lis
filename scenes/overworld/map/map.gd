@@ -2,15 +2,21 @@ extends Node2D
 
 const _libgeo = preload('res://lib/geo.gd')
 
-
-func _request_move_handler(c: Character, o: _libgeo.Orientation):
-	print("request_move_handler from %s to %s" % [grid(c), grid(c) + Vector2i(_libgeo.ORIENTATION_RAY[o])])
-	if not $Obstacles.query(grid(c) + Vector2i(_libgeo.ORIENTATION_RAY[o])):
-		c.path_queue.enqueue(o)
-
-
+ 
 func grid(n: Character) -> Vector2i:
 	return Vector2i(to_local(n.animation_sprite.global_position)) / _libgeo.GRID_DIMENSION
 
+
+func _move_pushed_handler(
+	c: Character,
+	o: _libgeo.Orientation,
+	source: Vector2,
+	target: Vector2,
+):
+	c.animate_move(o, not $Obstacles.query(target))
+
+
 func _ready():
-	SignalBus.request_move.connect(_request_move_handler)
+	SignalBus.move_requested.connect(func(c: Character, o: _libgeo.Orientation): c.path_queue.enqueue(o))
+	SignalBus.move_started.connect(_move_pushed_handler)
+	SignalBus.move_ended.connect(func(c: Character): null)

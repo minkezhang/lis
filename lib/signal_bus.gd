@@ -6,11 +6,20 @@ extends Node
 ## Example:
 ##
 ## # max.gd
-## SignalBus.request_move.emit(self, ...)
+## SignalBus.move_requested.emit(self, ...)
 
 const _libgeo = preload('res://lib/geo.gd')
 
-# request_move is shared by all Character instances, and therefore justifies
+# move_requested is shared by all Character instances, and therefore justifies
 # Singleton status. This is passed to the scene responsible for pathfinding
 # which can then direct Character movement after checking for obstacles.
-signal request_move(c: Character, o: _libgeo.Orientation)
+signal move_requested(c: Character, o: _libgeo.Orientation)
+
+signal move_started(
+	c: Character,
+	o: _libgeo.Orientation,
+	source: Vector2,
+	target: Vector2,
+)
+
+signal move_ended(c: Character)

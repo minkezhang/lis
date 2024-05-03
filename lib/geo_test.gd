@@ -13,6 +13,13 @@ class Test:
 				'want': Vector2i(0, 0),
 			},
 			{
+				'name': 'TestTrivial/Negative',
+				'c': Vector2i(0, 0),
+				'd': 16,
+				'w': Vector2(-8, 0),
+				'want': Vector2i(-1, 0),
+			},
+			{
 				'name': 'TestTrivial/Offset',
 				'c': Vector2i(8, 8),
 				'd': 16,
