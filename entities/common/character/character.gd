@@ -35,13 +35,14 @@ func _ready():
 func animate_move(o: _libgeo.Orientation, is_clear: bool):
 	var source = _gp.to_grid(animation_sprite.position)
 	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_clear else source
+	var duration = (1.0 if is_clear else 0.5) / _SPEED
 	_p.set_state(_libpose.Pose.WALK, o)
 	_tween = get_tree().create_tween()
 	_tween.tween_property(
 		animation_sprite,
 		'position',
 		_gp.to_world(target),
-		1.0 / _SPEED,
+		duration,
 	)
 	_tween.tween_callback(func(): SignalBus.move_ended.emit(self))
 	_tween.play()

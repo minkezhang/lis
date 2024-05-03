@@ -2,10 +2,6 @@ extends Node2D
 
 const _libgeo = preload('res://lib/geo.gd')
 
- 
-func grid(n: Character) -> Vector2i:
-	return Vector2i(to_local(n.animation_sprite.global_position)) / _libgeo.GRID_DIMENSION
-
 
 func _move_pushed_handler(
 	c: Character,
