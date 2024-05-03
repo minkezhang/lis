@@ -16,7 +16,7 @@ const _libgeo = preload('res://lib/geo.gd')
 var _tween: Tween
 var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _libgeo.GRID_DIMENSION)
 
-const _GRID_CENTER_OFFSET = Vector2(0, _libgeo.GRID_DIMENSION) / 2
+const _GRID_CENTER_OFFSET = Vector2(-_libgeo.GRID_DIMENSION, -_libgeo.GRID_DIMENSION) / 2
 const _SPEED = 3.0
 const _POLL_RATE_LIMIT = 15.0
 
@@ -33,13 +33,15 @@ func _ready():
 
 
 func animate_move(o: _libgeo.Orientation, is_clear: bool):
-	var source = _gp.to_grid(animation_sprite.position)
+	var source = _gp.to_grid(position)
 	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_clear else source
+	print("DEBUG(character.gd): animate_move: source = %s, target = %s" % [source, target])
+	print("DEBUG(character.gd): animate_move: source = %s, target = %s" % [_gp.to_world(source), _gp.to_world(target)])
 	var duration = (1.0 if is_clear else 0.5) / _SPEED
 	_p.set_state(_libpose.Pose.WALK, o)
 	_tween = get_tree().create_tween()
 	_tween.tween_property(
-		animation_sprite,
+		self,
 		'position',
 		_gp.to_world(target),
 		duration,
@@ -62,6 +64,7 @@ func _process(_delta):
 			# Allow user to face a direction before moving.
 			_p.set_state(_libpose.Pose.WALK, r.orientation)
 			
-			var source = _gp.to_grid(animation_sprite.global_position)
+			var source = _gp.to_grid(global_position)
 			var target = source + Vector2i(_libgeo.ORIENTATION_RAY[r.orientation])
+			print("DEBUG(character.gd): _process: source = %s, target = %s" % [source, target])
 			SignalBus.move_started.emit(self, r.orientation, source, target)
