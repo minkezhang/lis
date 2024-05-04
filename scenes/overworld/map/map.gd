@@ -50,3 +50,4 @@ func _ready():
 
 func _process(_delta):
 	$Camera.global_position = $Characters/Max.global_position
+	$Dialog.position = $Camera.position

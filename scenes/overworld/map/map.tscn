@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6mm4qr2d1cfx"]
+[gd_scene load_steps=12 format=3 uid="uid://b6mm4qr2d1cfx"]
 
 [ext_resource type="Script" path="res://scenes/overworld/map/map.gd" id="1_w0cgk"]
 [ext_resource type="Texture2D" uid="uid://c0holyctlv0og" path="res://scenes/overworld/map/assets/terrain.png" id="2_b4jic"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://crwd40pehy5rq" path="res://scenes/overworld/map/assets/pathing.png" id="4_vr8sl"]
 [ext_resource type="Script" path="res://scenes/overworld/map/obstacles.gd" id="5_q02i5"]
 [ext_resource type="PackedScene" uid="uid://hr48qut5jo31" path="res://entities/chloe/chloe.tscn" id="6_rhyh0"]
+[ext_resource type="PackedScene" uid="uid://ufi28gyvsh5g" path="res://scenes/dialog/dialog.tscn" id="7_sel20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6f3pr"]
 texture = ExtResource("2_b4jic")
@@ -319,8 +320,8 @@ y_sort_enabled = true
 [node name="Max" parent="Characters" instance=ExtResource("3_d146q")]
 position = Vector2(680, 456)
 
-[node name="Chloe2" parent="Characters" instance=ExtResource("6_rhyh0")]
-position = Vector2(680, 440)
-
 [node name="Chloe" parent="Characters" instance=ExtResource("6_rhyh0")]
 position = Vector2(232, 40)
+
+[node name="Dialog" parent="." instance=ExtResource("7_sel20")]
+z_index = 5
