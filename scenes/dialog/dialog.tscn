@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ufi28gyvsh5g"]
+
+[ext_resource type="Texture2D" uid="uid://bcyasyy6ai2v6" path="res://entities/common/assets/portraits.png" id="1_c54nr"]
+
+[node name="Dialog" type="Node2D"]
+
+[node name="Portrait" type="Sprite2D" parent="."]
+position = Vector2(88, 40)
+texture = ExtResource("1_c54nr")
+region_enabled = true
+region_rect = Rect2(0.00358582, 0, 31.9964, 64)
