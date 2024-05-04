@@ -6,14 +6,14 @@ extends Node
 ## Example:
 ##
 ## # character.gd
-## SignalBus.move_started.emit(self, ...)
+## SignalBus.move_requested.emit(self, ...)
 
 const _libgeo = preload('res://lib/geo.gd')
 
 
 signal character_created(c: Character, position: Vector2i)
-signal move_ended(c: Character, target: Vector2i)
-signal move_started(
+signal target_reached(c: Character, target: Vector2i)
+signal target_requested(
 	c: Character,
 	o: _libgeo.Orientation,
 	source: Vector2i,

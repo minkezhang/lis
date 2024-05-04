@@ -50,24 +50,27 @@ func animate_move(o: _libgeo.Orientation, is_valid: bool):
 		duration,
 	)
 	if is_valid:
-		_tween.tween_callback(func(): SignalBus.move_ended.emit(self, target))
+		_tween.tween_callback(func(): SignalBus.target_reached.emit(self, target))
 	_tween.play()
 
 
 func _process(_delta):
-	if _tween == null or not _tween.is_valid():
-		var r = path_queue.dequeue()
+	if _tween != null and _tween.is_valid():
+		return
+	
+	var r = path_queue.dequeue()
+	
+	# Only stop animation if no subsequent movement is queued. This allows for
+	# smoother animation for continuous movement in one direction.
+	if not r.success:
+		_p.set_state(_libpose.Pose.IDLE)
+	elif _p.get_state().pose == _libpose.Pose.IDLE and _p.get_state().orientation != r.orientation:
+		_p.set_state(_libpose.Pose.IDLE, r.orientation)
+	else:
+		# Allow user to face a direction before moving.
+		_p.set_state(_libpose.Pose.WALK, r.orientation)
 		
-		# Only stop animation if no subsequent movement is queued. This allows for
-		# smoother animation for continuous movement in one direction.
-		if not r.success:
-			_p.set_state(_libpose.Pose.IDLE)
-		elif _p.get_state().pose == _libpose.Pose.IDLE and _p.get_state().orientation != r.orientation:
-			_p.set_state(_libpose.Pose.IDLE, r.orientation)
-		else:
-			# Allow user to face a direction before moving.
-			_p.set_state(_libpose.Pose.WALK, r.orientation)
-			
-			var source = _global_grid_position()
-			var target = source + Vector2i(_libgeo.ORIENTATION_RAY[r.orientation])
-			SignalBus.move_started.emit(self, r.orientation, source, target)
+		var source = _global_grid_position()
+		var target = source + Vector2i(_libgeo.ORIENTATION_RAY[r.orientation])
+		
+		SignalBus.target_requested.emit(self, r.orientation, source, target)

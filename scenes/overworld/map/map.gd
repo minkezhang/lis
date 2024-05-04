@@ -32,8 +32,8 @@ func _character_created_handler(_c: Character, p: Vector2i):
 
 
 func _ready():
-	SignalBus.move_started.connect(_move_started_handler)
-	SignalBus.move_ended.connect(_move_ended_handler)
+	SignalBus.target_requested.connect(_move_started_handler)
+	SignalBus.target_reached.connect(_move_ended_handler)
 	SignalBus.character_created.connect(_character_created_handler)
 	
 	# Existing children are already instantiated and have already emitted missed
