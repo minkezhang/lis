@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6mm4qr2d1cfx"]
+[gd_scene load_steps=11 format=3 uid="uid://b6mm4qr2d1cfx"]
 
 [ext_resource type="Script" path="res://scenes/overworld/map/map.gd" id="1_w0cgk"]
 [ext_resource type="Texture2D" uid="uid://c0holyctlv0og" path="res://scenes/overworld/map/assets/terrain.png" id="2_b4jic"]
 [ext_resource type="PackedScene" uid="uid://di7d2i5j3myww" path="res://entities/max/max.tscn" id="3_d146q"]
 [ext_resource type="Texture2D" uid="uid://crwd40pehy5rq" path="res://scenes/overworld/map/assets/pathing.png" id="4_vr8sl"]
 [ext_resource type="Script" path="res://scenes/overworld/map/obstacles.gd" id="5_q02i5"]
+[ext_resource type="PackedScene" uid="uid://hr48qut5jo31" path="res://entities/chloe/chloe.tscn" id="6_rhyh0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6f3pr"]
 texture = ExtResource("2_b4jic")
@@ -308,11 +309,15 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 1, 131071, 0, 1, 196607, 0, 1, 26
 script = ExtResource("5_q02i5")
 debug = true
 
-[node name="Characters" type="Node" parent="."]
+[node name="Characters" type="Node2D" parent="."]
+z_index = 2
+y_sort_enabled = true
 
 [node name="Max" parent="Characters" instance=ExtResource("3_d146q")]
-z_index = 2
-position = Vector2(136, 120)
+position = Vector2(168, 136)
+
+[node name="Chloe" parent="Characters" instance=ExtResource("6_rhyh0")]
+position = Vector2(152, 136)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(81, 81)
