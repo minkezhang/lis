@@ -40,3 +40,7 @@ func _ready():
 	# signals.
 	for c in $Characters.get_children():
 		_character_created_handler(c, c._global_grid_position())
+
+
+func _process(_delta):
+	$Camera2D.global_position = $Characters/Max.global_position
