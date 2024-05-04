@@ -12,11 +12,11 @@ func _move_started_handler(
 	source: Vector2i,
 	target: Vector2i,
 ):
-	var is_clear = not $Obstacles.obstacles.query(target)
-	if is_clear:
+	var is_valid = not $Obstacles.obstacles.query(target)
+	if is_valid:
 		$Obstacles.obstacles.mark([source, target])
 		_moves[target] = source
-	c.animate_move(o, is_clear)
+	c.animate_move(o, is_valid)
 
 
 func _move_ended_handler(
