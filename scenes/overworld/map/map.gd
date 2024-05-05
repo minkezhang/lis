@@ -33,12 +33,6 @@ func _character_created_handler(_c: Character, p: Vector2i):
 
 
 func _ready():
-	# GBA resolution is 260 x 160, which is a 15 x 10 grid of tiles.
-	DisplayServer.window_set_size(Vector2i(
-		15 * _libgeo.GRID_DIMENSION * $Camera.zoom.x,
-		10 * _libgeo.GRID_DIMENSION * $Camera.zoom.y,
-	))
-	
 	SignalBus.target_requested.connect(_move_started_handler)
 	SignalBus.target_reached.connect(_move_ended_handler)
 	SignalBus.character_created.connect(_character_created_handler)
@@ -47,10 +41,3 @@ func _ready():
 	# signals.
 	for c in $Characters.get_children():
 		_character_created_handler(c, c._global_grid_position())
-	
-	$Dialog.set_dialog(_liblines.L['0'])
-
-
-func _process(_delta):
-	$Camera.global_position = $Characters/Max.global_position
-	$Dialog.position = $Camera.position

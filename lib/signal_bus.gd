@@ -19,3 +19,5 @@ signal target_requested(
 	source: Vector2i,
 	target: Vector2i,
 )
+
+signal action_triggered(id: String)
