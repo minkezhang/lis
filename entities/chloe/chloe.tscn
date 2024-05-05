@@ -1,11 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://hr48qut5jo31"]
 
-[ext_resource type="Script" path="res://entities/common/character/character.gd" id="1_4hydy"]
+[ext_resource type="Script" path="res://entities/common/character/character.gd" id="1_wlhbd"]
 [ext_resource type="PackedScene" uid="uid://crxnsg684v88p" path="res://entities/chloe/poses.tscn" id="2_iocfw"]
 
 [node name="Chloe" type="Node2D" node_paths=PackedStringArray("animation_sprite")]
-y_sort_enabled = true
-script = ExtResource("1_4hydy")
+script = ExtResource("1_wlhbd")
 animation_sprite = NodePath("Poses")
 
 [node name="Poses" parent="." instance=ExtResource("2_iocfw")]

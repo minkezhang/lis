@@ -1,25 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://ufi28gyvsh5g"]
+[gd_scene load_steps=6 format=3 uid="uid://ufi28gyvsh5g"]
 
 [ext_resource type="Texture2D" uid="uid://bcyasyy6ai2v6" path="res://entities/common/assets/portraits.png" id="1_c54nr"]
+[ext_resource type="Script" path="res://scenes/dialog/dialog.gd" id="1_oifte"]
 [ext_resource type="Texture2D" uid="uid://cdfqtk4c3in18" path="res://scenes/dialog/assets/dialog_base.png" id="1_xbsr7"]
 [ext_resource type="Texture2D" uid="uid://drwdwu3dk3wqy" path="res://scenes/dialog/assets/portrait_frame.png" id="2_kfyd1"]
 [ext_resource type="FontFile" uid="uid://bpkv3xjfyllhn" path="res://scenes/dialog/assets/font.png" id="2_ugj8i"]
 
 [node name="Dialog" type="Node2D"]
+script = ExtResource("1_oifte")
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(0, 58)
 texture = ExtResource("1_xbsr7")
 
 [node name="Frame" type="Sprite2D" parent="."]
-position = Vector2(-100, 52)
+position = Vector2(-100, 51)
 texture = ExtResource("2_kfyd1")
 
 [node name="Portrait" type="Sprite2D" parent="."]
-position = Vector2(-100, 44)
+position = Vector2(-116, 11)
 texture = ExtResource("1_c54nr")
+centered = false
 region_enabled = true
-region_rect = Rect2(0.00358582, 0, 31.9964, 64)
+region_rect = Rect2(0, 0, 32, 64)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -81.0
@@ -28,5 +31,4 @@ offset_right = 115.0
 offset_bottom = 78.0
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_ugj8i")
-text = "please let me make it in time..."
 autowrap_mode = 3

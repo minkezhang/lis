@@ -1,6 +1,7 @@
 extends Node2D
 
 const _libgeo = preload('res://lib/geo.gd')
+const _liblines = preload('res://lib/lines.gd')
 
 
 # _moves is a dict of { target: source } tuples
@@ -46,6 +47,8 @@ func _ready():
 	# signals.
 	for c in $Characters.get_children():
 		_character_created_handler(c, c._global_grid_position())
+	
+	$Dialog.set_dialog(_liblines.L['0'])
 
 
 func _process(_delta):
