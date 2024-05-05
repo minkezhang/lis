@@ -1,0 +1,22 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://bpkv3xjfyllhn"
+path="res://.godot/imported/font.png-dbd4b7c4664d00896eb1de5eb10196f9.fontdata"
+
+[deps]
+
+source_file="res://scenes/dialog/assets/font.png"
+dest_files=["res://.godot/imported/font.png-dbd4b7c4664d00896eb1de5eb10196f9.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("32-127")
+columns=16
+rows=6
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
+scaling_mode=0
