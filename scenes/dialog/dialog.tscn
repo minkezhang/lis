@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://ufi28gyvsh5g"]
+[gd_scene load_steps=7 format=3 uid="uid://ufi28gyvsh5g"]
 
 [ext_resource type="Texture2D" uid="uid://bcyasyy6ai2v6" path="res://entities/common/assets/portraits.png" id="1_c54nr"]
 [ext_resource type="Script" path="res://scenes/dialog/dialog.gd" id="1_oifte"]
 [ext_resource type="Texture2D" uid="uid://cdfqtk4c3in18" path="res://scenes/dialog/assets/dialog_base.png" id="1_xbsr7"]
 [ext_resource type="Texture2D" uid="uid://drwdwu3dk3wqy" path="res://scenes/dialog/assets/portrait_frame.png" id="2_kfyd1"]
 [ext_resource type="FontFile" uid="uid://bpkv3xjfyllhn" path="res://scenes/dialog/assets/font.png" id="2_ugj8i"]
+[ext_resource type="Script" path="res://scenes/dialog/controllable.gd" id="2_y48kw"]
 
 [node name="Dialog" type="Node2D"]
 script = ExtResource("1_oifte")
+
+[node name="Controllable" type="Node" parent="."]
+script = ExtResource("2_y48kw")
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(0, 58)

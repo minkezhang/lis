@@ -8,16 +8,20 @@ const _SPRITE_LOOKUP = {
 }
 
 
+var _line: _libdialog.Line
+
+
 func set_dialog(l: _libdialog.Line):
-	$Frame.set_region_rect(_SPRITE_LOOKUP[l.c()])
-	$Label.text = l.ls()[0]
+	_line = l
+	$Frame.set_region_rect(_SPRITE_LOOKUP[l.character()])
+	advance_dialog_text()
 
 
-# Called when the node enters the scene tree for the first time.
+func advance_dialog_text():
+	visible = not _line.eof()
+	$Label.text = _line.get_next_line()
+
+
 func _ready():
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
+	visible = true
+	$Controllable.input_advance_text.connect(advance_dialog_text)

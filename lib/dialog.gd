@@ -9,13 +9,27 @@ enum C {
 class Line:
 	var _c: C
 	var _ls: Array
+	var _index: int
 	
-	func _init(char: C, lines: Array):
-		_c = char
+	func _init(c: C, lines: Array):
+		_c = c
 		_ls = lines.duplicate()
+		_index = 0
 	
-	func c() -> C:
+	func character() -> C:
 		return _c
 	
-	func ls() -> Array:
-		return _ls
+	func seek(i: int):
+		_index = i
+	
+	func eof():
+		return _index >= len(_ls)
+	
+	func get_next_line() -> String:
+		if eof():
+			return ''
+		
+		var s = _ls[_index]
+		_index += 1
+		
+		return s
