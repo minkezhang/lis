@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scenes/dialog/dialog.gd" id="1_oifte"]
 [ext_resource type="Texture2D" uid="uid://cdfqtk4c3in18" path="res://scenes/dialog/assets/dialog_base.png" id="1_xbsr7"]
 [ext_resource type="Texture2D" uid="uid://drwdwu3dk3wqy" path="res://scenes/dialog/assets/portrait_frame.png" id="2_kfyd1"]
-[ext_resource type="FontFile" uid="uid://bpkv3xjfyllhn" path="res://scenes/dialog/assets/font.png" id="2_ugj8i"]
 [ext_resource type="Script" path="res://scenes/dialog/controllable.gd" id="2_y48kw"]
+[ext_resource type="FontFile" uid="uid://bpkv3xjfyllhn" path="res://scenes/dialog/assets/font_5x6.png" id="6_x26uj"]
 
 [node name="Dialog" type="Node2D"]
 script = ExtResource("1_oifte")
@@ -34,5 +34,5 @@ offset_top = 38.0
 offset_right = 115.0
 offset_bottom = 78.0
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_ugj8i")
+theme_override_fonts/font = ExtResource("6_x26uj")
 autowrap_mode = 3

@@ -1,0 +1,22 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://c1ptg86ugn50h"
+path="res://.godot/imported/font_3x6.png-81a274bc33bfbe75419a2f0d6a2fe28a.fontdata"
+
+[deps]
+
+source_file="res://entities/common/dialog/font_3x6.png"
+dest_files=["res://.godot/imported/font_3x6.png-81a274bc33bfbe75419a2f0d6a2fe28a.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("32-127")
+columns=16
+rows=6
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
+scaling_mode=0

@@ -3,6 +3,7 @@ extends Object
 enum C {
 	NONE,
 	MAX,
+	JEFFERSON,
 }
 
 
