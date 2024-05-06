@@ -3,17 +3,20 @@ extends Node2D
 const _libdialog = preload('res://lib/dialog.gd')
 const _liblines = preload('res://lib/lines.gd')
 
-const _SPRITE_LOOKUP = {
-	_libdialog.C.MAX: Rect2(Vector2(0, 0), Vector2(32, 64)),
-}
+@export var display_offset: int
 
+const _LINE_LENGTH: int = 20
 
 var _line: _libdialog.LineReader
 
 
+func set_display_offset(o: int):
+	display_offset = o
+	position.y = display_offset * 16
+
+
 func set_dialog(l: _libdialog.Line):
-	_line = _libdialog.LineReader.new(l)
-	$Frame.set_region_rect(_SPRITE_LOOKUP[l.character()])
+	_line = _libdialog.LineReader.new(l, _LINE_LENGTH)
 	advance_dialog_text()
 
 
@@ -23,5 +26,4 @@ func advance_dialog_text():
 
 
 func _ready():
-	visible = true
-	$Controllable.input_advance_text.connect(advance_dialog_text)
+	set_display_offset(display_offset)

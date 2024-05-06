@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 const _libgeo = preload('res://lib/geo.gd')
 
