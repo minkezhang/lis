@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://di7d2i5j3myww"]
+[gd_scene load_steps=7 format=3 uid="uid://di7d2i5j3myww"]
 
 [ext_resource type="Script" path="res://entities/max/max.gd" id="1_cx4wr"]
 [ext_resource type="PackedScene" uid="uid://cfr4en3phi8et" path="res://entities/max/poses.tscn" id="2_uc811"]
 [ext_resource type="Script" path="res://entities/max/controllable.gd" id="2_wmg7o"]
 [ext_resource type="Script" path="res://entities/max/dialog.gd" id="4_o1wgp"]
 [ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://entities/common/dialog/font_3x6.png" id="5_f42si"]
+[ext_resource type="Script" path="res://entities/common/dialog/label.gd" id="5_quwl7"]
 
 [node name="Max" type="Node2D" node_paths=PackedStringArray("animation_sprite")]
 y_sort_enabled = true
@@ -28,6 +29,8 @@ theme_override_fonts/font = ExtResource("5_f42si")
 text = "ffffffffffffffffffff"
 horizontal_alignment = 1
 autowrap_mode = 3
+script = ExtResource("5_quwl7")
+LINE_LENGTH = 20
 metadata/_edit_use_anchors_ = true
 
 [node name="Poses" parent="." instance=ExtResource("2_uc811")]

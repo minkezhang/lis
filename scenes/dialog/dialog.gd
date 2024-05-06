@@ -1,27 +1,29 @@
 extends Node2D
 
 const _libdialog = preload('res://lib/dialog.gd')
-const _liblines = preload('res://lib/lines.gd')
 
 const _SPRITE_LOOKUP = {
 	_libdialog.C.MAX: Rect2(Vector2(0, 0), Vector2(32, 64)),
 }
 
 
-var _line: _libdialog.LineReader
+func _handle_eof():
+	visible = false
+	$Controllable.input_advance_text.disconnect(advance_dialog_text)
 
 
 func set_dialog(l: _libdialog.Line):
-	_line = _libdialog.LineReader.new(l)
+	visible = true
+	$Controllable.input_advance_text.connect(advance_dialog_text)
+	
 	$Frame.set_region_rect(_SPRITE_LOOKUP[l.character()])
-	advance_dialog_text()
+	$Label.set_dialog(l)
 
 
 func advance_dialog_text():
-	visible = not _line.eof()
-	$Label.text = _line.get_next_line()
+	$Label.advance_dialog_text()
 
 
 func _ready():
-	visible = true
-	$Controllable.input_advance_text.connect(advance_dialog_text)
+	visible = false
+	$Label.eof.connect(_handle_eof)

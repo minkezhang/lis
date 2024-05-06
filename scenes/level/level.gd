@@ -12,7 +12,7 @@ func _ready():
 	))
 	
 	$Dialog.set_dialog(_liblines.L['0'])
-	$Map/Characters/Max/Dialog.set_dialog(_liblines.L['0'])
+	$Map/Characters/Max/Dialog/Label.set_dialog(_liblines.L['0'])
 
 
 func _process(_delta):
