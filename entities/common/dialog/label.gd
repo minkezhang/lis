@@ -5,6 +5,7 @@ const _libdialog = preload('res://lib/dialog.gd')
 signal eof_reached
 
 @export var line_length: int = 0
+@export var n_lines: int = 0
 @export var auto_advance_ms: float = 0
 
 var _line: _libdialog.LineReader
@@ -18,7 +19,7 @@ func _ready():
 
 
 func set_dialog(l: _libdialog.Line):
-	_line = _libdialog.LineReader.new(l, line_length)
+	_line = _libdialog.LineReader.new(l, line_length, n_lines)
 	advance_dialog_text()
 	if _t != null:
 		_t.timeout.connect(advance_dialog_text)  # _t.one_shot is false by default

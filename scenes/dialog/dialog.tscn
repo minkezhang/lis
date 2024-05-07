@@ -39,4 +39,5 @@ theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("6_x26uj")
 autowrap_mode = 3
 script = ExtResource("7_vpou3")
-line_length = 140
+line_length = 28
+n_lines = 5

@@ -14,12 +14,8 @@ var _TEST_SUITES = [
 		'test_suite': func(): return _libgeotest.Test.new().to_world(),
 	},
 	{
-		'name': 'dialog.LineReader._split_lines',
-		'test_suite': func(): return _libdialogtest.Test.new().split_lines(),
-	},
-	{
-		'name': 'dialog.LineReader.get_next_line',
-		'test_suite': func(): return _libdialogtest.Test.new().get_next_line(),
+		'name': 'dialog.LineReader._split_single_line',
+		'test_suite': func(): return _libdialogtest.Test.new().split_single_line(),
 	},
 ]
 
