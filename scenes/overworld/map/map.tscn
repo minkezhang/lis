@@ -316,4 +316,4 @@ y_sort_enabled = true
 position = Vector2(616, 440)
 
 [node name="Chloe" parent="Characters" instance=ExtResource("6_rhyh0")]
-position = Vector2(248, 40)
+position = Vector2(648, 472)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://hr48qut5jo31"]
+[gd_scene load_steps=4 format=3 uid="uid://hr48qut5jo31"]
 
 [ext_resource type="Script" path="res://entities/common/character/character.gd" id="1_wlhbd"]
 [ext_resource type="PackedScene" uid="uid://crxnsg684v88p" path="res://entities/chloe/poses.tscn" id="2_iocfw"]
+[ext_resource type="PackedScene" uid="uid://b2k7isxshcqja" path="res://entities/common/dialog/dialog.tscn" id="3_rahk5"]
 
 [node name="Chloe" type="Node2D" node_paths=PackedStringArray("animation_sprite")]
 script = ExtResource("1_wlhbd")
@@ -10,3 +11,5 @@ animation_sprite = NodePath("Poses")
 [node name="Poses" parent="." instance=ExtResource("2_iocfw")]
 position = Vector2(0, -8)
 animation = &"idle_south"
+
+[node name="Dialog" parent="." instance=ExtResource("3_rahk5")]

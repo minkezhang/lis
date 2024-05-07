@@ -6,4 +6,4 @@ func _ready():
 	
 	$Controllable.input_move.connect(
 		func(o: _libgeo.Orientation): path_queue.enqueue(o)
-	)
+)

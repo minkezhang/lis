@@ -30,11 +30,13 @@ region_enabled = true
 region_rect = Rect2(0, 0, 32, 64)
 
 [node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(196, 0)
 offset_left = -81.0
 offset_top = 38.0
 offset_right = 115.0
-offset_bottom = 78.0
+offset_bottom = 46.0
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("6_x26uj")
 autowrap_mode = 3
 script = ExtResource("7_vpou3")
+line_length = 140

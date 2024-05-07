@@ -12,8 +12,8 @@ func _ready():
 	))
 	
 # 	TODO(minkezhang): Remove test lines.
-	$Dialog.set_dialog(_liblines.L['0'])
-	$Map/Characters/Max/Dialog/Label.set_dialog(_liblines.L['1'])
+	$Dialog.set_dialog(_liblines.L['DEBUG'])
+	$Map/Characters/Chloe/Dialog.set_dialog(_liblines.L['DEBUG'])
 
 
 func _process(_delta):
