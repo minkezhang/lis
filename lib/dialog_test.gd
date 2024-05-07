@@ -97,7 +97,7 @@ class Test:
 		for config in cs:
 			tests.append({
 				'name': config['name'],
-				'got': _libdialog.LineReader._split_lines(config['ls'], config['n']),
+				'got': _libdialog._split_lines(config['ls'], config['n']),
 				'want': config['want'],
 			})
 		return tests
