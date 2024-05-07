@@ -11,7 +11,7 @@ class LineReader:
 	var _ls: Array
 	var _index: int
 	
-	func _split_lines(ls: Array, n: int) -> Array:
+	static func _split_lines(ls: Array, n: int) -> Array:
 		if not n:
 			return ls.duplicate()
 		
@@ -21,16 +21,16 @@ class LineReader:
 		
 		for l in ls:
 			var ws = r.search_all(l)
-			var curr = ""
+			var curr = []
 			for i in range(ws.size()):
 				var w = ws[i].get_string()
-				if (curr.length() + w.length() + (1 if i < ws.size() - 1 else 0)) <= n:
-					curr += " " + w
+				if curr.size() == 0 or ' '.join(curr).length() + w.length() + 1 <= n:
+					curr.append(w)
 				else:
-					res.append(curr)
-					curr = w
-			if curr != "":
-				res.append(curr)
+					res.append(' '.join(curr))
+					curr = [w]
+			if curr.size() > 0:
+				res.append(' '.join(curr))
 		
 		return res
 	

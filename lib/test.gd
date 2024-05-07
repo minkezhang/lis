@@ -1,6 +1,7 @@
 extends Node2D
 
 const _libgeotest = preload('res://lib/geo_test.gd')
+const _libdialogtest = preload('res://lib/dialog_test.gd')
 
 
 var _TEST_SUITES = [
@@ -11,6 +12,14 @@ var _TEST_SUITES = [
 	{
 		'name': 'geo.GeoPosition.to_world',
 		'test_suite': func(): return _libgeotest.Test.new().to_world(),
+	},
+	{
+		'name': 'dialog.LineReader._split_lines',
+		'test_suite': func(): return _libdialogtest.Test.new().split_lines(),
+	},
+	{
+		'name': 'dialog.LineReader.get_next_line',
+		'test_suite': func(): return _libdialogtest.Test.new().get_next_line(),
 	},
 ]
 
