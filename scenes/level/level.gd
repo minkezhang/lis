@@ -11,8 +11,9 @@ func _ready():
 		10 * _libgeo.GRID_DIMENSION * $Camera.zoom.y,
 	))
 	
+# 	TODO(minkezhang): Remove test lines.
 	$Dialog.set_dialog(_liblines.L['0'])
-	$Map/Characters/Max/Dialog/Label.set_dialog(_liblines.L['0'])
+	$Map/Characters/Max/Dialog/Label.set_dialog(_liblines.L['1'])
 
 
 func _process(_delta):

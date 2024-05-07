@@ -2,7 +2,7 @@ extends Label
 
 const _libdialog = preload('res://lib/dialog.gd')
 
-signal eof
+signal eof_reached
 
 @export var LINE_LENGTH: int = 0
 
@@ -16,7 +16,6 @@ func set_dialog(l: _libdialog.Line):
 
 func advance_dialog_text():
 	if _line.eof():
-		eof.emit()
+		eof_reached.emit()
 		return
 	text = _line.get_next_line()
-	print(text)

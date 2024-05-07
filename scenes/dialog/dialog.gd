@@ -7,7 +7,7 @@ const _SPRITE_LOOKUP = {
 }
 
 
-func _handle_eof():
+func _handle_eof_reached():
 	visible = false
 	$Controllable.input_advance_text.disconnect(advance_dialog_text)
 
@@ -26,4 +26,4 @@ func advance_dialog_text():
 
 func _ready():
 	visible = false
-	$Label.eof.connect(_handle_eof)
+	$Label.eof_reached.connect(_handle_eof_reached)
