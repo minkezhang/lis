@@ -7,9 +7,10 @@ const _SPRITE_LOOKUP = {
 }
 
 
-func _handle_eof_reached():
-	visible = false
-	$Controllable.input_advance_text.disconnect(advance_dialog_text)
+func _handle_eof_reached(id: String):
+	if id == $Label.line_id():
+		visible = false
+		$Controllable.input_advance_text.disconnect(advance_dialog_text)
 
 
 func set_dialog(l: _libdialog.Line):
@@ -26,4 +27,4 @@ func advance_dialog_text():
 
 func _ready():
 	visible = false
-	$Label.eof_reached.connect(_handle_eof_reached)
+	SignalBus.eof_reached.connect(_handle_eof_reached)

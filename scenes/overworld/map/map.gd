@@ -1,7 +1,7 @@
 extends Node2D
 
 const _libgeo = preload('res://lib/geo.gd')
-const _liblines = preload('res://lib/lines.gd')
+const _libscript = preload('res://lib/script.gd')
 
 
 # _moves is a dict of { target: source } tuples

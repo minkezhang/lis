@@ -20,4 +20,4 @@ signal target_requested(
 	target: Vector2i,
 )
 
-signal action_triggered(id: String)
+signal eof_reached(id: String)

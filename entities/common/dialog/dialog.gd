@@ -5,8 +5,9 @@ const _libdialog = preload('res://lib/dialog.gd')
 @export var display_offset: int
 
 
-func _eof_reached_handler():
-	visible = false
+func _eof_reached_handler(id: String):
+	if id == $Label.line_id():
+		visible = false
 
 
 func set_display_offset(o: int):
@@ -22,4 +23,4 @@ func set_dialog(l: _libdialog.Line):
 
 func _ready():
 	visible = false
-	$Label.eof_reached.connect(_eof_reached_handler)
+	SignalBus.eof_reached.connect(_eof_reached_handler)

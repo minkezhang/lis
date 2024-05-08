@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b2k7isxshcqja"]
 
 [ext_resource type="Script" path="res://entities/common/dialog/dialog.gd" id="1_qks7b"]
-[ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://entities/common/dialog/font_3x6.png" id="2_wyqj3"]
-[ext_resource type="Script" path="res://entities/common/dialog/label.gd" id="3_dwxp4"]
+[ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://entities/common/label/assets/font_3x6.png" id="2_mg7c5"]
+[ext_resource type="Script" path="res://entities/common/label/label.gd" id="3_x8gi0"]
 
 [node name="Dialog" type="Node2D"]
 z_index = 5
@@ -14,10 +14,10 @@ offset_left = -40.0
 offset_top = -21.0
 offset_right = 40.0
 offset_bottom = -14.0
-theme_override_fonts/font = ExtResource("2_wyqj3")
+theme_override_fonts/font = ExtResource("2_mg7c5")
 horizontal_alignment = 1
 autowrap_mode = 3
-script = ExtResource("3_dwxp4")
+script = ExtResource("3_x8gi0")
 line_length = 20
 n_lines = 1
 auto_advance_ms = 3000.0

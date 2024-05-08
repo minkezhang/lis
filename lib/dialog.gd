@@ -76,10 +76,12 @@ static func _split_lines(
 
 class LineReader:
 	var _ls: Array
+	var _id: String
 	var _index: int
 	
 	func _init(line: Line, output_line_length: int = 0, output_n_lines: int = 0):
 		_index = 0
+		_id = line.id()
 		_ls = _LibDialog._split_lines(line._ls, output_line_length, output_n_lines)
 	
 	func seek(i: int):
@@ -95,17 +97,25 @@ class LineReader:
 		var s = _ls[_index]
 		_index += 1
 		return s
+		
+	func id() -> String:
+		return _id
 
 
 class Line:
 	var _c: C
+	var _id: String
 	var _ls: Array
 	var _index: int
 	
-	func _init(c: C, lines: Array):
+	func _init(id: String, c: C, lines: Array):
 		_c = c
+		_id = id
 		_ls = lines.duplicate()
 		_index = 0
 	
 	func character() -> C:
 		return _c
+	
+	func id() -> String:
+		return _id

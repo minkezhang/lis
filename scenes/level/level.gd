@@ -1,6 +1,6 @@
 extends Node2D
 
-const _liblines = preload('res://lib/lines.gd')
+const _libscript = preload('res://lib/script.gd')
 const _libgeo = preload('res://lib/geo.gd')
 
 
@@ -12,8 +12,9 @@ func _ready():
 	))
 	
 # 	TODO(minkezhang): Remove test lines.
-	$Dialog.set_dialog(_liblines.L['DEBUG'])
-	$Map/Characters/Chloe/Dialog.set_dialog(_liblines.L['DEBUG'])
+	$Dialog.set_dialog(_libscript.SCRIPT['DEBUG'])
+	$Map/Characters/Chloe/Dialog.set_dialog(_libscript.SCRIPT['0'])
+
 
 
 func _process(_delta):
