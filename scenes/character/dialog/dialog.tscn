@@ -4,16 +4,17 @@
 [ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://scenes/label/assets/font_3x6.png" id="2_mg7c5"]
 [ext_resource type="Script" path="res://scenes/label/label.gd" id="3_x8gi0"]
 
-[node name="Dialog" type="Node2D"]
+[node name="Dialog" type="Node2D" node_paths=PackedStringArray("label")]
 z_index = 5
 script = ExtResource("1_qks7b")
+label = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]
 custom_minimum_size = Vector2(80, 0)
 offset_left = -40.0
-offset_top = -21.0
+offset_top = -25.0
 offset_right = 40.0
-offset_bottom = -14.0
+offset_bottom = -18.0
 theme_override_fonts/font = ExtResource("2_mg7c5")
 horizontal_alignment = 1
 autowrap_mode = 3

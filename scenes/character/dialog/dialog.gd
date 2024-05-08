@@ -1,13 +1,10 @@
-extends Node2D
-
-const _libdialog = preload('res://lib/dialog.gd')
+extends Dialog
 
 @export var display_offset: int
 
 
 func _eof_reached_handler(id: String):
-	if id == $Label.line_id():
-		visible = false
+	return eof_reached_handler_base(id)
 
 
 func set_display_offset(o: int):
@@ -17,10 +14,9 @@ func set_display_offset(o: int):
 
 func set_dialog(l: _libdialog.Line):
 	set_display_offset(display_offset)
-	visible = true
-	$Label.set_dialog(l)
+	super(l)
 
 
 func _ready():
-	visible = false
+	super()
 	SignalBus.eof_reached.connect(_eof_reached_handler)

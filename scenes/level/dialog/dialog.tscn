@@ -8,8 +8,9 @@
 [ext_resource type="FontFile" uid="uid://bpkv3xjfyllhn" path="res://scenes/level/dialog/assets/font_5x6.png" id="6_x26uj"]
 [ext_resource type="Script" path="res://scenes/label/label.gd" id="7_a2h7i"]
 
-[node name="Dialog" type="Node2D"]
+[node name="Dialog" type="Node2D" node_paths=PackedStringArray("label")]
 script = ExtResource("1_oifte")
+label = NodePath("Label")
 
 [node name="Controllable" type="Node" parent="."]
 script = ExtResource("2_y48kw")

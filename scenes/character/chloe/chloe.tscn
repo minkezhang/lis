@@ -9,7 +9,7 @@ script = ExtResource("1_hcm8k")
 animation_sprite = NodePath("Poses")
 
 [node name="Poses" parent="." instance=ExtResource("2_iocfw")]
-position = Vector2(0, -8)
+position = Vector2(0, -12)
 animation = &"idle_south"
 
 [node name="Dialog" parent="." instance=ExtResource("3_rahk5")]
