@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0holyctlv0og"
-path="res://.godot/imported/terrain.png-4b8378a5afd798ec611bbb8c1db9f3c8.ctex"
+uid="uid://drwdwu3dk3wqy"
+path="res://.godot/imported/portrait_frame.png-2db1c968560d4f033b0433e3ba184300.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/overworld/map/assets/terrain.png"
-dest_files=["res://.godot/imported/terrain.png-4b8378a5afd798ec611bbb8c1db9f3c8.ctex"]
+source_file="res://scenes/level/dialog/assets/portrait_frame.png"
+dest_files=["res://.godot/imported/portrait_frame.png-2db1c968560d4f033b0433e3ba184300.ctex"]
 
 [params]
 

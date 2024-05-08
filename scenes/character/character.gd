@@ -6,7 +6,7 @@ class_name Character
 ## of the World Decoration and DecorationOverlay layers, as the
 ## DecorationOverlay layer contains e.g. treetop tiles.
 
-const _libposeable = preload('res://entities/common/poseable/poseable.tscn')
+const _libposeable = preload('res://scenes/character/poseable/poseable.tscn')
 const _libpathqueue = preload('res://lib/pathqueue.gd')
 const _libpose = preload('res://lib/pose.gd')
 const _libgeo = preload('res://lib/geo.gd')

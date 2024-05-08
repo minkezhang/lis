@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crwd40pehy5rq"
-path="res://.godot/imported/pathing.png-0aee89b4eeba4cd9ad69ffe4b62bd10b.ctex"
+uid="uid://cdfqtk4c3in18"
+path="res://.godot/imported/dialog_base.png-d51e23cebf9ca818f3c84fd8bef9ba24.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/overworld/map/assets/pathing.png"
-dest_files=["res://.godot/imported/pathing.png-0aee89b4eeba4cd9ad69ffe4b62bd10b.ctex"]
+source_file="res://scenes/level/dialog/assets/dialog_base.png"
+dest_files=["res://.godot/imported/dialog_base.png-d51e23cebf9ca818f3c84fd8bef9ba24.ctex"]
 
 [params]
 

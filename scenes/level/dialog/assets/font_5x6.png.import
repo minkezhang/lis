@@ -3,12 +3,12 @@
 importer="font_data_image"
 type="FontFile"
 uid="uid://bpkv3xjfyllhn"
-path="res://.godot/imported/font_5x6.png-8073e0ba17bf187081a4117ffa32ac46.fontdata"
+path="res://.godot/imported/font_5x6.png-e3d3e0a264081e25d8b7deb31d1c6651.fontdata"
 
 [deps]
 
-source_file="res://scenes/dialog/assets/font_5x6.png"
-dest_files=["res://.godot/imported/font_5x6.png-8073e0ba17bf187081a4117ffa32ac46.fontdata"]
+source_file="res://scenes/level/dialog/assets/font_5x6.png"
+dest_files=["res://.godot/imported/font_5x6.png-e3d3e0a264081e25d8b7deb31d1c6651.fontdata"]
 
 [params]
 

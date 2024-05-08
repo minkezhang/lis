@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdfqtk4c3in18"
-path="res://.godot/imported/dialog_base.png-52e5ec0c9a466e9bd522a56802ada086.ctex"
+uid="uid://c0holyctlv0og"
+path="res://.godot/imported/terrain.png-8bfeb94b76b24546a852d93a1e5d8284.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/dialog/assets/dialog_base.png"
-dest_files=["res://.godot/imported/dialog_base.png-52e5ec0c9a466e9bd522a56802ada086.ctex"]
+source_file="res://scenes/level/overworld/map/assets/terrain.png"
+dest_files=["res://.godot/imported/terrain.png-8bfeb94b76b24546a852d93a1e5d8284.ctex"]
 
 [params]
 

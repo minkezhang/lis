@@ -108,9 +108,9 @@ class Line:
 	var _ls: Array
 	var _index: int
 	
-	func _init(id: String, c: C, lines: Array):
+	func _init(i: String, c: C, lines: Array):
 		_c = c
-		_id = id
+		_id = i
 		_ls = lines.duplicate()
 		_index = 0
 	
