@@ -19,5 +19,4 @@ func set_dialog(l: _libdialog.Line):
 
 func _ready():
 	assert(label != null, 'Property label must be non-null')
-	
 	visible = false

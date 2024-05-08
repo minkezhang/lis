@@ -14,9 +14,11 @@ func set_display_offset(o: int):
 
 func set_dialog(l: _libdialog.Line):
 	set_display_offset(display_offset)
+	
 	super(l)
 
 
 func _ready():
 	super()
+	
 	SignalBus.eof_reached.connect(_eof_reached_handler)
