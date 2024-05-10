@@ -1,19 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://ufi28gyvsh5g"]
+[gd_scene load_steps=7 format=3 uid="uid://ufi28gyvsh5g"]
 
 [ext_resource type="Texture2D" uid="uid://bcyasyy6ai2v6" path="res://scenes/character/assets/portraits.png" id="1_c54nr"]
 [ext_resource type="Script" path="res://scenes/level/dialog/dialog.gd" id="1_oifte"]
 [ext_resource type="Texture2D" uid="uid://cdfqtk4c3in18" path="res://scenes/level/dialog/assets/dialog_base.png" id="1_xbsr7"]
 [ext_resource type="Texture2D" uid="uid://drwdwu3dk3wqy" path="res://scenes/level/dialog/assets/portrait_frame.png" id="2_kfyd1"]
-[ext_resource type="Script" path="res://scenes/level/dialog/controllable.gd" id="2_y48kw"]
 [ext_resource type="FontFile" uid="uid://bpkv3xjfyllhn" path="res://scenes/level/dialog/assets/font_5x6.png" id="6_x26uj"]
 [ext_resource type="Script" path="res://scenes/label/label.gd" id="7_a2h7i"]
 
 [node name="Dialog" type="Node2D" node_paths=PackedStringArray("label")]
 script = ExtResource("1_oifte")
 label = NodePath("Label")
-
-[node name="Controllable" type="Node" parent="."]
-script = ExtResource("2_y48kw")
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(0, 58)

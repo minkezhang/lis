@@ -24,6 +24,8 @@ signal target_requested(
 signal eof_reached(id: String)
 
 # Controller signals
-signal controller_mode_change_requested(mode: _libcontroller.ControllerMode)
+signal enable_controller_mode_requested(mode: _libcontroller.ControllerMode)
+signal disable_controller_mode_requested(mode: _libcontroller.ControllerMode)
+
 signal move_requested(direction: _libgeo.Orientation)
-signal dialog_accept_requested()
+signal advance_dialog_requested()

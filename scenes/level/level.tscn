@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://by4dtpw1n4rrn"]
+[gd_scene load_steps=5 format=3 uid="uid://by4dtpw1n4rrn"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_c0187"]
 [ext_resource type="PackedScene" uid="uid://ufi28gyvsh5g" path="res://scenes/level/dialog/dialog.tscn" id="1_qj0l6"]
+[ext_resource type="PackedScene" uid="uid://cfgopsu06dfv5" path="res://scenes/level/controller/controller.tscn" id="2_lxrhx"]
 [ext_resource type="PackedScene" uid="uid://b6mm4qr2d1cfx" path="res://scenes/level/overworld/map/map.tscn" id="2_vatu1"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_c0187")
+
+[node name="Controller" parent="." instance=ExtResource("2_lxrhx")]
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)

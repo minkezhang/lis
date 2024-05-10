@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://di7d2i5j3myww"]
+[gd_scene load_steps=3 format=3 uid="uid://di7d2i5j3myww"]
 
 [ext_resource type="Script" path="res://scenes/character/max/max.gd" id="1_cx4wr"]
 [ext_resource type="PackedScene" uid="uid://cfr4en3phi8et" path="res://scenes/character/max/poses.tscn" id="2_uc811"]
-[ext_resource type="Script" path="res://scenes/character/max/controllable.gd" id="2_wmg7o"]
 
 [node name="Max" type="Node2D" node_paths=PackedStringArray("animation_sprite")]
 script = ExtResource("1_cx4wr")
@@ -12,6 +11,3 @@ animation_sprite = NodePath("Poses")
 position = Vector2(0, -12)
 animation = &"idle_south"
 frame_progress = 0.0
-
-[node name="Controllable" type="Node" parent="."]
-script = ExtResource("2_wmg7o")

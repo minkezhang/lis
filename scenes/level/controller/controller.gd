@@ -6,13 +6,30 @@ const _libgeo = preload('res://lib/geo.gd')
 
 var _SCENES_LOOKUP: Dictionary
 
+var _prev_controller_mode: _libcontroller.ControllerMode = _libcontroller.ControllerMode.NULL
+var _curr_controller_mode: _libcontroller.ControllerMode = _libcontroller.ControllerMode.NULL
 
-func _controller_mode_change_requested_handler(
-	mode: _libcontroller.ControllerMode
+
+func _toggle_controller_mode_requested_handler(
+	mode: _libcontroller.ControllerMode,
+	target_enabled_state: bool,
 ):
-	for k in _SCENES_LOOKUP:
-		print(k)
-		_SCENES_LOOKUP[k].set_is_enabled(mode == k)
+	# Do something only if a change was detected.
+	if (
+		target_enabled_state and mode == _curr_controller_mode
+	) or (
+		not target_enabled_state and mode != _curr_controller_mode
+	):
+		return
+	
+	if target_enabled_state:
+		_prev_controller_mode = _curr_controller_mode
+		_curr_controller_mode = mode
+	else:
+		_curr_controller_mode = _prev_controller_mode
+		_prev_controller_mode = mode
+	_SCENES_LOOKUP[_curr_controller_mode].set_is_enabled(true)
+	_SCENES_LOOKUP[_prev_controller_mode].set_is_enabled(false)
 
 
 func _ready():
@@ -22,10 +39,9 @@ func _ready():
 		_libcontroller.ControllerMode.DIALOG: $Dialog,
 	}
 	
-	SignalBus.controller_mode_change_requested.connect(
-		_controller_mode_change_requested_handler
+	SignalBus.enable_controller_mode_requested.connect(
+		func(m: _libcontroller.ControllerMode): _toggle_controller_mode_requested_handler(m, true),
 	)
-	
-	SignalBus.controller_mode_change_requested.emit(
-		_libcontroller.ControllerMode.MOVE,
+	SignalBus.disable_controller_mode_requested.connect(
+		func(m: _libcontroller.ControllerMode): _toggle_controller_mode_requested_handler(m, false),
 	)

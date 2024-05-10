@@ -4,6 +4,8 @@ class_name NullControllerScene
 const _libcontroller = preload('res://lib/controller.gd')
 
 var _is_enabled: bool
+
+@warning_ignore("unused_private_class_variable")
 var _controller: _libcontroller.NullControllerConfig = _libcontroller.NullControllerConfig.new()
 
 

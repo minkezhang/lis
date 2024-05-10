@@ -43,4 +43,4 @@ class DialogControllerConfig extends NullControllerConfig:
 	func mode():
 		return ControllerMode.DIALOG
 	func accept_handler():
-		SignalBus.dialog_accept_requested.emit()
+		SignalBus.advance_dialog_requested.emit()
