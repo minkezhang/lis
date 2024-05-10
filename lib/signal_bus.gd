@@ -9,6 +9,7 @@ extends Node
 ## SignalBus.move_requested.emit(self, ...)
 
 const _libgeo = preload('res://lib/geo.gd')
+const _libcontroller = preload('res://lib/controller.gd')
 
 
 signal character_created(c: Character, position: Vector2i)
@@ -21,3 +22,8 @@ signal target_requested(
 )
 
 signal eof_reached(id: String)
+
+# Controller signals
+signal controller_mode_change_requested(mode: _libcontroller.ControllerMode)
+signal move_requested(direction: _libgeo.Orientation)
+signal dialog_accept_requested()
