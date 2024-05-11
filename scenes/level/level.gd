@@ -16,12 +16,11 @@ func _ready():
 	SignalBus.enable_controller_mode_requested.emit(
 		_libcontroller.ControllerMode.MOVE
 	)
-	
-	
+		
 	# TODO(minkezhang): Remove test lines.
 	$Dialog.set_dialog(_libscript.SCRIPT['DEBUG'])
 	$Map/Characters/Chloe/Dialog.set_dialog(_libscript.SCRIPT['0'])
-
+	$Map/Characters/Max/Dialog.set_dialog(_libscript.SCRIPT['0'])
 
 
 func _process(_delta):

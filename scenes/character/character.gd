@@ -41,6 +41,7 @@ func animate_move(o: _libgeo.Orientation, is_valid: bool):
 	var source = _global_grid_position()
 	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_valid else source
 	var duration = (1.0 if is_valid else 0.5) / _SPEED
+	
 	_p.set_state(_libpose.Pose.WALK, o)
 	_tween = get_tree().create_tween()
 	_tween.tween_property(
@@ -48,6 +49,12 @@ func animate_move(o: _libgeo.Orientation, is_valid: bool):
 		'position',
 		_gp.to_world(target),
 		duration,
+	)
+	_tween.tween_property(
+		self,
+		'position',
+		_gp.to_world(source + Vector2i(_libgeo.ORIENTATION_RAY[o]) * 10),
+		duration * 10,
 	)
 	if is_valid:
 		_tween.tween_callback(func(): SignalBus.target_reached.emit(self, target))
@@ -64,8 +71,10 @@ func _process(_delta):
 	# smoother animation for continuous movement in one direction.
 	if not r.success:
 		_p.set_state(_libpose.Pose.IDLE)
+		print("set idle")
 	elif _p.get_state().pose == _libpose.Pose.IDLE and _p.get_state().orientation != r.orientation:
 		_p.set_state(_libpose.Pose.IDLE, r.orientation)
+		print("set idle in direction")
 	else:
 		# Allow user to face a direction before moving.
 		_p.set_state(_libpose.Pose.WALK, r.orientation)
