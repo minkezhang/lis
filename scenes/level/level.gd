@@ -20,7 +20,8 @@ func _ready():
 	# TODO(minkezhang): Remove test lines.
 	$Dialog.set_dialog(_libscript.SCRIPT['DEBUG'])
 	$Map/Characters/Chloe/Dialog.set_dialog(_libscript.SCRIPT['0'])
-	$Map/Characters/Max/Dialog.set_dialog(_libscript.SCRIPT['0'])
+	$Map/Characters/Max/Dialog.set_dialog(_libscript.SCRIPT['DEBUG'])
+
 
 func _process(_delta):
 	$Camera.global_position = $Map/Characters/Max.global_position

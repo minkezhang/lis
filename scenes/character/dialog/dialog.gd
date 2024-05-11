@@ -12,10 +12,10 @@ func set_display_offset(o: int):
 	position.y = display_offset * 16
 
 
-func set_dialog(l: _libdialog.Line):
+func set_dialog(l: _libdialog.Line, k: String = ''):
 	set_display_offset(display_offset)
 	
-	super(l)
+	super(l, k)
 
 
 func _ready():

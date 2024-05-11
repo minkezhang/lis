@@ -17,8 +17,8 @@ func _eof_reached_handler(id: String):
 		)
 
 
-func set_dialog(l: _libdialog.Line):
-	super(l)
+func set_dialog(l: _libdialog.Line, k: String = ''):
+	super(l, k)
 
 	$Frame.set_region_rect(_SPRITE_LOOKUP[l.character()])
 	SignalBus.advance_dialog_requested.connect($Label.advance_dialog_text)

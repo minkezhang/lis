@@ -12,9 +12,9 @@ func eof_reached_handler_base(id: String):
 		visible = false
 
 
-func set_dialog(l: _libdialog.Line):
+func set_dialog(l: _libdialog.Line, k: String = ''):
 	visible = true
-	$Label.set_dialog(l)
+	$Label.set_dialog(l, k)
 
 
 func _ready():
