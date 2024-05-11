@@ -12,4 +12,3 @@ animation_sprite = NodePath("Poses")
 
 [node name="Poses" parent="." instance=ExtResource("2_uc811")]
 position = Vector2(0, -12)
-animation = &"walk_west"
