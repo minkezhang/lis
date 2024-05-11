@@ -131,5 +131,4 @@ animations = [{
 [node name="Poses" type="AnimatedSprite2D"]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_pbi8t")
-animation = &"walk_north"
-frame_progress = 0.534123
+animation = &"walk_west"

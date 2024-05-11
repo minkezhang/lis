@@ -16,7 +16,7 @@ var _ANIMATION_STRING = [
 var _orientation: _libgeo.Orientation = _libgeo.Orientation.S
 var _pose: _libpose.Pose = _libpose.Pose.IDLE
 var _loop: String  = 'idle_south'
-var _is_dirty: bool = false
+var _is_dirty: bool = true
 
 var animation_sprite: AnimatedSprite2D
 
@@ -31,7 +31,6 @@ func _validate_animation_sprite(s: AnimatedSprite2D):
 
 func _ready():
 	_validate_animation_sprite(animation_sprite)
-	_is_dirty = true
 
 
 func _process(_delta):
