@@ -70,6 +70,24 @@ func animate_move(o: _libgeo.Orientation, is_valid: bool):
 	)
 	if is_valid:
 		_tween.tween_callback(func(): SignalBus.target_reached.emit(self, target))
+	# Tween jitter also seems to be due in part to the Tween animating the sprite
+	# in two different places for a single frame for each time the Tween starts.
+	# This forces the tween to skip a bit of the initial Tween frame.
+	#
+	# N.B.: The delta here seems to be partially tied to the camera zoom level --
+	# this may indicate that the problem actually lies in the sub-pixel rendering
+	# capabilities of a moving Godot Camera2D node.
+	#
+	# Potentially related issues:
+	#   * https://godotforums.org/d/35793
+	#   * https://github.com/godotengine/godot-proposals/issues/6389
+	#   * https://github.com/godotengine/godot-proposals/discussions/9256
+	#
+	# TODO(minkezhang): Investigate the GitHub discussion above re. v4.3dev4
+	# workaround.
+	_tween.custom_step(1.0 / (
+		5 * Engine.physics_ticks_per_second * Engine.max_physics_steps_per_frame
+	))
 	_tween.play()
 
 
