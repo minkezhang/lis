@@ -5,6 +5,7 @@ class_name _LibScript
 
 const _libdialog = preload('res://lib/dialog.gd')
 
+
 static var _L = [
 	_libdialog.Line.new(
 		'DEBUG',

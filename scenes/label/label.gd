@@ -14,6 +14,8 @@ var _t: Timer
 const _KEY_LENGTH: int = 16
 
 func line_id() -> String:
+	if not _line:
+		return ""
 	return _line_key if _line_key else _line.id()
 
 
@@ -30,13 +32,14 @@ func _ready():
 func set_dialog(l: _libdialog.Line, key: String = ''):
 	_line_key = key if key else _librand.randstring(_KEY_LENGTH)
 	_line = _libdialog.LineReader.new(l, line_length, n_lines)
-	advance_dialog_text()
 	if _t != null:
 		_t.timeout.connect(advance_dialog_text)  # _t.one_shot is false by default
 		_t.start(auto_advance_ms / 1000)
+	advance_dialog_text()
 
 
 func advance_dialog_text():
+
 	if _line.eof():
 		SignalBus.eof_reached.emit(line_id())
 		if _t != null:
