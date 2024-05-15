@@ -7,7 +7,7 @@ const _libscript = preload('res://lib/script.gd')
 # _moves is a dict of { target: source } tuples
 var _moves: Dictionary = {}
 
-func _move_started_handler(
+func _target_requested_handler(
 	c: Character,
 	o: _libgeo.Orientation,
 	source: Vector2i,
@@ -20,7 +20,7 @@ func _move_started_handler(
 	c.animate_move(o, is_valid)
 
 
-func _move_ended_handler(
+func _target_reached_handler(
 	_c: Character,
 	target: Vector2i,
 ):
@@ -33,8 +33,8 @@ func _character_created_handler(_c: Character, p: Vector2i):
 
 
 func _ready():
-	SignalBus.target_requested.connect(_move_started_handler)
-	SignalBus.target_reached.connect(_move_ended_handler)
+	SignalBus.target_requested.connect(_target_requested_handler)
+	SignalBus.target_reached.connect(_target_reached_handler)
 	SignalBus.character_created.connect(_character_created_handler)
 	
 	# Existing children are already instantiated and have already emitted missed

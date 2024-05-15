@@ -10,6 +10,12 @@ const _libevent = preload('res://lib/event.gd')
 @onready var _EVENT_TRIGGERS = {}
 
 
+func _target_reached_handler(c: Character, p: Vector2i):
+	if c == $Map/Characters/Max:
+		if p == Vector2i(38, 27):
+			SignalBus.event_triggered.emit('TARGET:{c}:{p}')
+
+
 func _eof_reached_handler(lid: String):
 	SignalBus.event_triggered.emit('EOF:{l}'.format({'l': lid}))
 
@@ -47,6 +53,7 @@ func _ready():
 	
 	SignalBus.eof_reached.connect(_eof_reached_handler)
 	SignalBus.event_triggered.connect(_event_triggered_handler)
+	SignalBus.target_reached.connect(_target_reached_handler)
 	
 	SignalBus.event_triggered.emit('SCENE_START')
 
