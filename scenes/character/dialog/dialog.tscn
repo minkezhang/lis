@@ -21,4 +21,4 @@ autowrap_mode = 3
 script = ExtResource("3_x8gi0")
 line_length = 20
 n_lines = 1
-auto_advance_ms = 3000.0
+auto_advance_ms = 2500.0

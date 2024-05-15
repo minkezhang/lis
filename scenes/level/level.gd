@@ -11,7 +11,7 @@ const _libevent = preload('res://lib/event.gd')
 
 
 func _eof_reached_handler(lid: String):
-	SignalBus.event_triggered.emit(lid)
+	SignalBus.event_triggered.emit('EOF:{l}'.format({'l': lid}))
 
 
 func _event_triggered_handler(eid: String):
@@ -30,13 +30,13 @@ func _ready():
 	
 	_EVENT_TRIGGERS = {
 		'SCENE_START': [
-			_libevent.DialogEvent.new(_libscript.SCRIPT['0'], $Map/Characters/Max/Dialog, 'EOF_0'),
+			_libevent.DialogEvent.new(_libscript.SCRIPT['FOREST:MAX:00'], $Dialog, 'FOREST:MAX:00'),
 		],
-		'EOF_0': [
-			_libevent.DialogEvent.new(_libscript.SCRIPT['1'], $Map/Characters/Max/Dialog, 'EOF_1'),
+		'EOF:FOREST:MAX:00': [
+			_libevent.DialogEvent.new(_libscript.SCRIPT['FOREST:MAX:01'], $Dialog, 'FOREST:MAX:01'),
 		],
-		'EOF_1': [
-			_libevent.DialogEvent.new(_libscript.SCRIPT['DEBUG'], $Dialog),
+		'EOF:FOREST:MAX:01': [
+			_libevent.DialogEvent.new(_libscript.SCRIPT['NULL:MAX:LOREMIPSUM'], $Map/Characters/Max/Dialog),
 		],
 	}
 	
