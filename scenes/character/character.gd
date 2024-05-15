@@ -30,17 +30,19 @@ func _ready():
 	_p.animation_sprite = animation_sprite
 	add_child(_p)
 	path_queue = _libpathqueue.PathQueue.new(1)
-	SignalBus.character_created.emit(self, _global_grid_position())
+	
+	await SignalBus.signal_handlers_installed
+	SignalBus.target_reached.emit(self, _global_grid_position())
 
 
 func _global_grid_position():
 	return _gp.to_grid(global_position)
 
 
-func animate_move(o: _libgeo.Orientation, is_valid: bool):
+func animate_move(o: _libgeo.Orientation, is_free: bool):
 	var source = _global_grid_position()
-	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_valid else source
-	var duration = (1.0 if is_valid else 0.5) / _SPEED
+	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_free else source
+	var duration = (1.0 if is_free else 0.5) / _SPEED
 	
 	_p.set_state(_libpose.Pose.WALK, o)
 	_tween = get_tree().create_tween()
@@ -68,8 +70,9 @@ func animate_move(o: _libgeo.Orientation, is_valid: bool):
 		_gp.to_world(target),
 		duration,
 	)
-	if is_valid:
+	if is_free:
 		_tween.tween_callback(func(): SignalBus.target_reached.emit(self, target))
+	
 	# Tween jitter also seems to be due in part to the Tween animating the sprite
 	# in two different places for a single frame for each time the Tween starts.
 	# This forces the tween to skip a bit of the initial Tween frame.
@@ -88,6 +91,7 @@ func animate_move(o: _libgeo.Orientation, is_valid: bool):
 	_tween.custom_step(1.0 / (
 		5 * Engine.physics_ticks_per_second * Engine.max_physics_steps_per_frame
 	))
+	
 	_tween.play()
 
 

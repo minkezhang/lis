@@ -13,31 +13,31 @@ func _target_requested_handler(
 	source: Vector2i,
 	target: Vector2i,
 ):
-	var is_valid = not $Obstacles.obstacles.query(target)
-	if is_valid:
+	var d = (source - target).abs()
+	assert(d.x + d.y == 1, "source must be adjacent to target")
+	
+	var is_free = not $Obstacles.obstacles.query(target)
+	if is_free:
+		# Reserve target space.
 		$Obstacles.obstacles.mark([source, target])
 		_moves[target] = source
-	c.animate_move(o, is_valid)
+	c.animate_move(o, is_free)
 
 
 func _target_reached_handler(
 	_c: Character,
 	target: Vector2i,
 ):
-	$Obstacles.obstacles.clear([_moves[target]])
-	_moves.erase(target)
+	$Obstacles.obstacles.mark([target])
+	if target in _moves:
+		$Obstacles.obstacles.clear([_moves[target]])
+		_moves.erase(target)
 
 
-func _character_created_handler(_c: Character, p: Vector2i):
-	$Obstacles.obstacles.mark([p])
+func _character_created_handler(c: Character, p: Vector2i):
+	SignalBus.target_reached.emit(c, p)
 
 
 func _ready():
 	SignalBus.target_requested.connect(_target_requested_handler)
 	SignalBus.target_reached.connect(_target_reached_handler)
-	SignalBus.character_created.connect(_character_created_handler)
-	
-	# Existing children are already instantiated and have already emitted missed
-	# signals.
-	for c in $Characters.get_children():
-		_character_created_handler(c, c._global_grid_position())

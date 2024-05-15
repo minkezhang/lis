@@ -14,7 +14,12 @@ const _libevent = preload('res://lib/event.gd')
 const _libdialog = preload('res://lib/dialog.gd')
 
 
-signal character_created(c: Character, position: Vector2i)
+# signal_handlers_ready is sent by the root node (i.e. level) at the end of the
+# _ready function which indicates all nodes in the tree are ready to recieve
+# signals.
+signal signal_handlers_installed()
+
+
 signal target_reached(c: Character, target: Vector2i)
 signal target_requested(
 	c: Character,

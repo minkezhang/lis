@@ -4,13 +4,61 @@ const _libid = preload('res://lib/id.gd')
 const _libdialog = preload('res://lib/dialog.gd')
 
 
-class Event extends _libid.ID:
-	func is_ready() -> bool:
-		assert(false, "unimplemented Event is_ready function")
-		return false
+class Event:
+	var _next: Event
+	
+	func chain(e: Event):
+		if _next == null:
+			_next = e
+		else:
+			_next.chain(e)
+		return self
 	
 	func execute():
-		assert(false, "unimplemented Event execute function")
+		if _next != null:
+			_next.execute()
+
+class EmitEvent extends Event:
+	var _eid: String
+	
+	func _init(eid: String):
+		_eid = eid
+	
+	func execute():
+		SignalBus.event_triggered.emit(_eid)
+		
+		super()
+
+
+class TimerEvent extends Event:
+	var _n: Node
+	var _time_sec: float
+	
+	func _init(n: Node, time_sec: float):
+		_n = n
+		_time_sec = time_sec
+	
+	func execute():
+		var _t = Timer.new()
+		
+		_n.add_child(_t)
+		_t.start(_time_sec)
+		
+		await _t.timeout
+		
+		_t.queue_free()
+		
+		super()
+
+class CustomEvent extends Event:
+	var _f: Callable
+	func _init(f: Callable):
+		_f = f
+	
+	func execute():
+		self._f.call()
+		
+		super()
 
 
 class DialogEvent extends Event:
@@ -18,13 +66,12 @@ class DialogEvent extends Event:
 	var _n: Node
 	var _eid: String
 	
-	func _init(l: _libdialog.Line, n: Node, e: String = ''):
+	func _init(l: _libdialog.Line, n: Node, eid: String = ''):
 		_l = l
 		_n = n
-		_eid = e
-	
-	func is_ready() -> bool:
-		return true
+		_eid = eid
 	
 	func execute():
 		_n.set_dialog(_l, _eid)
+		
+		super()
