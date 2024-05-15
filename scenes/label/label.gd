@@ -39,11 +39,10 @@ func set_dialog(l: _libdialog.Line, key: String = ''):
 
 
 func advance_dialog_text():
-
 	if _line.eof():
-		SignalBus.eof_reached.emit(line_id())
 		if _t != null:
 			_t.stop()
 			_t.timeout.disconnect(advance_dialog_text)
+		SignalBus.eof_reached.emit(line_id())
 		return
 	text = _line.get_next_line()

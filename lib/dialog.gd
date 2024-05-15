@@ -3,11 +3,15 @@ extends Object
 # https://github.com/godotengine/godot/issues/86032 for more information.
 class_name _LibDialog
 
+const _libid = preload('res://lib/id.gd')
+
+
 enum C {
 	NONE,
 	MAX,
 	JEFFERSON,
 }
+
 
 static func _split_single_line(
 	input_line: String,
@@ -59,6 +63,7 @@ static func _split_single_line(
 	
 	return output_blocks
 
+
 static func _split_lines(
 	input_lines: Array,
 	output_line_length: int,
@@ -74,14 +79,14 @@ static func _split_lines(
 	return output_lines
 
 
-class LineReader:
+class LineReader extends _libid.ID:
 	var _ls: Array
-	var _id: String
 	var _index: int
 	
 	func _init(line: Line, output_line_length: int = 0, output_n_lines: int = 0):
+		super(line.id())
+		
 		_index = 0
-		_id = line.id()
 		_ls = _LibDialog._split_lines(line._ls, output_line_length, output_n_lines)
 	
 	func seek(i: int):
@@ -97,25 +102,20 @@ class LineReader:
 		var s = _ls[_index]
 		_index += 1
 		return s
-		
-	func id() -> String:
-		return _id
-
-
-class Line:
+	
+	
+class Line extends _libid.ID:
 	var _c: C
-	var _id: String
 	var _ls: Array
 	var _index: int
 	
-	func _init(i: String, c: C, lines: Array):
+	func _init(x: String, c: C, lines: Array):
+		super(x)
+		
 		_c = c
-		_id = i
 		_ls = lines.duplicate()
 		_index = 0
 	
 	func character() -> C:
 		return _c
 	
-	func id() -> String:
-		return _id

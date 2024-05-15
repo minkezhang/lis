@@ -10,6 +10,8 @@ extends Node
 
 const _libgeo = preload('res://lib/geo.gd')
 const _libcontroller = preload('res://lib/controller.gd')
+const _libevent = preload('res://lib/event.gd')
+const _libdialog = preload('res://lib/dialog.gd')
 
 
 signal character_created(c: Character, position: Vector2i)
@@ -21,11 +23,13 @@ signal target_requested(
 	target: Vector2i,
 )
 
-signal eof_reached(id: String)
+signal eof_reached(l: String)
+
+signal event_triggered(e: String)
 
 # Controller signals
 signal enable_controller_mode_requested(mode: _libcontroller.ControllerMode)
 signal disable_controller_mode_requested(mode: _libcontroller.ControllerMode)
-
 signal move_requested(direction: _libgeo.Orientation)
 signal advance_dialog_requested()
+

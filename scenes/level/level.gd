@@ -3,6 +3,22 @@ extends Node2D
 const _libscript = preload('res://lib/script.gd')
 const _libgeo = preload('res://lib/geo.gd')
 const _libcontroller = preload('res://lib/controller.gd')
+const _libevent = preload('res://lib/event.gd')
+
+
+# Dialog lines that will fire due to the event signal being triggered.
+@onready var _EVENT_DIALOG_TRIGGERS = {}
+
+
+func _eof_reached_handler(lid: String):
+	SignalBus.event_triggered.emit(lid)
+
+
+func _event_triggered_handler(eid: String):
+	# Trigger dialog events
+	if eid in _EVENT_DIALOG_TRIGGERS:
+		for e in _EVENT_DIALOG_TRIGGERS[eid]:
+			e.node().set_dialog(_libscript.SCRIPT[e.dialog_id()], e.eid())
 
 
 func _ready():
@@ -12,15 +28,27 @@ func _ready():
 		10 * _libgeo.GRID_DIMENSION * $Camera.zoom.y,
 	))
 	
+	_EVENT_DIALOG_TRIGGERS = {
+		'SCENE_START': [
+			_libevent.DialogEvent.new('0', $Map/Characters/Max/Dialog, 'EOF_0'),
+		],
+		'EOF_0': [
+			_libevent.DialogEvent.new('1', $Map/Characters/Max/Dialog, 'EOF_1'),
+		],
+		'EOF_1': [
+			_libevent.DialogEvent.new('DEBUG', $Dialog),
+		],
+	}
+	
 	# TODO(minkezhang): Set default controller config to MENU.
 	SignalBus.enable_controller_mode_requested.emit(
 		_libcontroller.ControllerMode.MOVE
 	)
-		
-	# TODO(minkezhang): Remove test lines.
-	$Dialog.set_dialog(_libscript.SCRIPT['DEBUG'])
-	$Map/Characters/Chloe/Dialog.set_dialog(_libscript.SCRIPT['0'])
-	$Map/Characters/Max/Dialog.set_dialog(_libscript.SCRIPT['DEBUG'])
+	
+	SignalBus.eof_reached.connect(_eof_reached_handler)
+	SignalBus.event_triggered.connect(_event_triggered_handler)
+	
+	SignalBus.event_triggered.emit('SCENE_START')
 
 
 func _process(_delta):
