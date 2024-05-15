@@ -48,18 +48,24 @@ func _ready():
 			_libevent.CustomEvent.new(func(): SignalBus.signal_handlers_installed.emit()),
 		],
 		'START_TIMER': [
-			_libevent.TimerEvent.new(self, 1.0).chain(
+			_libevent.TimerEvent.new(self, 5.0).chain(
 				_libevent.EmitEvent.new('START_DIALOG'),
 			),
 		],
 		'START_DIALOG': [
-			_libevent.DialogEvent.new(_libscript.SCRIPT['FOREST:MAX:00'], $Dialog, 'FOREST:MAX:00'),
+			_libevent.DialogEvent.new(
+				_libscript.SCRIPT['FOREST:MAX:00'],
+				$Dialog,
+				'FOREST:MAX:00',
+			),
 		],
 		'EOF:FOREST:MAX:00': [
-			_libevent.DialogEvent.new(_libscript.SCRIPT['FOREST:MAX:01'], $Dialog, 'FOREST:MAX:01'),
-		],
-		'EOF:FOREST:MAX:01': [
-			_libevent.DialogEvent.new(_libscript.SCRIPT['NULL:MAX:LOREMIPSUM'], $Map/Characters/Max/Dialog),
+			_libevent.TimerEvent.new(self, 1.0).chain(
+				_libevent.DialogEvent.new(
+					_libscript.SCRIPT['FOREST:MAX:01'],
+					$Map/Characters/Max/Dialog,
+				),
+			),
 		],
 	}
 	

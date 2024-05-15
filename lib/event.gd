@@ -65,13 +65,19 @@ class DialogEvent extends Event:
 	var _l: _libdialog.Line
 	var _n: Node
 	var _eid: String
+	var _executed: bool  # dialog is a singleton event
 	
 	func _init(l: _libdialog.Line, n: Node, eid: String = ''):
 		_l = l
 		_n = n
 		_eid = eid
+		_executed = false
 	
 	func execute():
+		if _executed:
+			return
+		
+		_executed = true
 		_n.set_dialog(_l, _eid)
 		
 		super()
