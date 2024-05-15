@@ -7,7 +7,7 @@ const _libevent = preload('res://lib/event.gd')
 
 
 # Dialog lines that will fire due to the event signal being triggered.
-@onready var _EVENT_DIALOG_TRIGGERS = {}
+@onready var _EVENT_TRIGGERS = {}
 
 
 func _eof_reached_handler(lid: String):
@@ -15,10 +15,10 @@ func _eof_reached_handler(lid: String):
 
 
 func _event_triggered_handler(eid: String):
-	# Trigger dialog events
-	if eid in _EVENT_DIALOG_TRIGGERS:
-		for e in _EVENT_DIALOG_TRIGGERS[eid]:
-			e.node().set_dialog(_libscript.SCRIPT[e.dialog_id()], e.eid())
+	if eid in _EVENT_TRIGGERS:
+		for e in _EVENT_TRIGGERS[eid]:
+			if e.is_ready():
+				e.execute()
 
 
 func _ready():
@@ -28,15 +28,15 @@ func _ready():
 		10 * _libgeo.GRID_DIMENSION * $Camera.zoom.y,
 	))
 	
-	_EVENT_DIALOG_TRIGGERS = {
+	_EVENT_TRIGGERS = {
 		'SCENE_START': [
-			_libevent.DialogEvent.new('0', $Map/Characters/Max/Dialog, 'EOF_0'),
+			_libevent.DialogEvent.new(_libscript.SCRIPT['0'], $Map/Characters/Max/Dialog, 'EOF_0'),
 		],
 		'EOF_0': [
-			_libevent.DialogEvent.new('1', $Map/Characters/Max/Dialog, 'EOF_1'),
+			_libevent.DialogEvent.new(_libscript.SCRIPT['1'], $Map/Characters/Max/Dialog, 'EOF_1'),
 		],
 		'EOF_1': [
-			_libevent.DialogEvent.new('DEBUG', $Dialog),
+			_libevent.DialogEvent.new(_libscript.SCRIPT['DEBUG'], $Dialog),
 		],
 	}
 	

@@ -1,25 +1,30 @@
 extends Object
 
 const _libid = preload('res://lib/id.gd')
+const _libdialog = preload('res://lib/dialog.gd')
+
 
 class Event extends _libid.ID:
-	pass
+	func is_ready() -> bool:
+		assert(false, "unimplemented Event is_ready function")
+		return false
+	
+	func execute():
+		assert(false, "unimplemented Event execute function")
+
 
 class DialogEvent extends Event:
-	var _dialog_id: String
-	var _node: Node
+	var _l: _libdialog.Line
+	var _n: Node
 	var _eid: String
 	
-	func _init(d: String, n: Node, e: String = ''):
-		_dialog_id = d
-		_node = n
+	func _init(l: _libdialog.Line, n: Node, e: String = ''):
+		_l = l
+		_n = n
 		_eid = e
 	
-	func dialog_id() -> String:
-		return _dialog_id
+	func is_ready() -> bool:
+		return true
 	
-	func node() -> Node:
-		return _node
-	
-	func eid() -> String:
-		return _eid
+	func execute():
+		_n.set_dialog(_l, _eid)
