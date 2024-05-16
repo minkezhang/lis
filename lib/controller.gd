@@ -2,7 +2,9 @@ extends Object
 
 const _libgeo = preload('res://lib/geo.gd')
 
-enum ControllerMode { NULL, MOVE, DIALOG }
+enum ControllerMode { NULL, MOVE, DIALOG, DEBUG }
+enum ControllerInputType { UP, DOWN, LEFT, RIGHT, SPACE }
+enum ControllerInputAction { PRESSED, RELEASED }
 
 const CONTORLLER_CONFIG_LOOKUP = {
 	ControllerMode.NULL: NullControllerConfig,
@@ -14,33 +16,63 @@ const CONTORLLER_CONFIG_LOOKUP = {
 class NullControllerConfig:
 	func mode() -> ControllerMode:
 		return ControllerMode.NULL
-	func n_handler():
+	func n_handler(_m: ControllerInputAction):
 		pass
-	func e_handler():
+	func e_handler(_m: ControllerInputAction):
 		pass
-	func s_handler():
+	func s_handler(_m: ControllerInputAction):
 		pass
-	func w_handler():
+	func w_handler(_m: ControllerInputAction):
 		pass
-	func accept_handler():
+	func accept_handler(_m: ControllerInputAction):
 		pass
+
+
+class DebugControllerConfig extends NullControllerConfig:
+	func mode() -> ControllerMode:
+		return ControllerMode.NULL
+	
+	func n_handler(m: ControllerInputAction):
+		SignalBus.debug_input_detected.emit(m, ControllerInputType.UP)
+	
+	func e_handler(m: ControllerInputAction):
+		SignalBus.debug_input_detected.emit(m, ControllerInputType.RIGHT)
+	
+	func s_handler(m: ControllerInputAction):
+		SignalBus.debug_input_detected.emit(m, ControllerInputType.DOWN)
+	
+	func w_handler(m: ControllerInputAction):
+		SignalBus.debug_input_detected.emit(m, ControllerInputType.LEFT)
+	
+	func accept_handler(m: ControllerInputAction):
+		SignalBus.debug_input_detected.emit(m, ControllerInputType.SPACE)
 
 
 class MoveControllerConfig extends NullControllerConfig:
 	func mode():
 		return ControllerMode.MOVE
-	func n_handler():
-		SignalBus.move_requested.emit(_libgeo.Orientation.N)
-	func e_handler():
-		SignalBus.move_requested.emit(_libgeo.Orientation.E)
-	func s_handler():
-		SignalBus.move_requested.emit(_libgeo.Orientation.S)
-	func w_handler():
-		SignalBus.move_requested.emit(_libgeo.Orientation.W)
+	
+	func n_handler(m: ControllerInputAction):
+		if m == ControllerInputAction.PRESSED:
+			SignalBus.move_requested.emit(_libgeo.Orientation.N)
+	
+	func e_handler(m: ControllerInputAction):
+		if m == ControllerInputAction.PRESSED:
+			SignalBus.move_requested.emit(_libgeo.Orientation.E)
+	
+	func s_handler(m: ControllerInputAction):
+		if m == ControllerInputAction.PRESSED:
+			SignalBus.move_requested.emit(_libgeo.Orientation.S)
+	
+	func w_handler(m: ControllerInputAction):
+		if m == ControllerInputAction.PRESSED:
+			SignalBus.move_requested.emit(_libgeo.Orientation.W)
 
 
 class DialogControllerConfig extends NullControllerConfig:
 	func mode():
 		return ControllerMode.DIALOG
-	func accept_handler():
-		SignalBus.advance_dialog_requested.emit()
+	
+	func accept_handler(m: ControllerInputAction):
+		if m == ControllerInputAction.PRESSED:
+			SignalBus.advance_dialog_requested.emit()

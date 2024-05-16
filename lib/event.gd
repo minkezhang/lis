@@ -66,6 +66,7 @@ class DialogEvent extends Event:
 	var _n: Node
 	var _eid: String
 	var _executed: bool  # dialog is a singleton event
+	signal _eof
 	
 	func _init(l: _libdialog.Line, n: Node, eid: String = ''):
 		_l = l
@@ -76,8 +77,17 @@ class DialogEvent extends Event:
 	func execute():
 		if _executed:
 			return
-		
 		_executed = true
+		
+		var _h = func(l: String):
+			if l == _eid:
+				_eof.emit()
+				print("handled: {l}".format({'l': l}))
+		SignalBus.eof_reached.connect(_h)
+		
 		_n.set_dialog(_l, _eid)
 		
+		await _eof
+		SignalBus.eof_reached.disconnect(_h)
+		print("exited: {l}".format({'l': _eid}))
 		super()

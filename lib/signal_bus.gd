@@ -38,3 +38,8 @@ signal disable_controller_mode_requested(mode: _libcontroller.ControllerMode)
 signal move_requested(direction: _libgeo.Orientation)
 signal advance_dialog_requested()
 
+signal debug_input_detected(
+	action: _libcontroller.ControllerInputAction,
+	input: _libcontroller.ControllerInputType,
+)
+signal debug_controller_mode_changed(mode: _libcontroller.ControllerMode)

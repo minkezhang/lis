@@ -6,7 +6,7 @@ func _process(_delta):
 		return
 	
 	if Input.is_action_just_pressed('ui_accept'):
-		_controller.accept_handler()
+		_controller.accept_handler(_libcontroller.ControllerInputAction.PRESSED)
 
 
 func _ready():

@@ -14,6 +14,7 @@ func _toggle_controller_mode_requested_handler(
 	mode: _libcontroller.ControllerMode,
 	target_enabled_state: bool,
 ):
+	assert(mode != _libcontroller.ControllerMode.DEBUG, "cannot manually set to the debug controller type")
 	# Do something only if a change was detected.
 	if (
 		target_enabled_state and mode == _curr_controller_mode
@@ -30,6 +31,8 @@ func _toggle_controller_mode_requested_handler(
 		_prev_controller_mode = mode
 	_SCENES_LOOKUP[_curr_controller_mode].set_is_enabled(true)
 	_SCENES_LOOKUP[_prev_controller_mode].set_is_enabled(false)
+	
+	SignalBus.debug_controller_mode_changed.emit(_curr_controller_mode)
 
 
 func _ready():

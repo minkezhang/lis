@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxtkfmi8e828v"]
+
+[ext_resource type="Script" path="res://scenes/debug/debug.gd" id="1_8pwvv"]
+[ext_resource type="Texture2D" uid="uid://btp15pwa28uf6" path="res://scenes/level/controller/assets/debug.png" id="2_vxinv"]
+[ext_resource type="Script" path="res://scenes/debug/ui_sprite.gd" id="3_l3rgq"]
+[ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://scenes/label/assets/font_3x6.png" id="4_vw06v"]
+[ext_resource type="Script" path="res://scenes/debug/ui_label.gd" id="5_u1ias"]
+
+[node name="Debug" type="Node2D"]
+script = ExtResource("1_8pwvv")
+debug = true
+
+[node name="Space" type="Sprite2D" parent="."]
+position = Vector2(40, 0)
+texture = ExtResource("2_vxinv")
+region_enabled = true
+region_rect = Rect2(64, 0, 32, 16)
+script = ExtResource("3_l3rgq")
+input = 4
+
+[node name="Down" type="Sprite2D" parent="."]
+texture = ExtResource("2_vxinv")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+script = ExtResource("3_l3rgq")
+input = 1
+
+[node name="Left" type="Sprite2D" parent="."]
+position = Vector2(-16, 0)
+texture = ExtResource("2_vxinv")
+region_enabled = true
+region_rect = Rect2(32, 0, 16, 16)
+script = ExtResource("3_l3rgq")
+input = 2
+
+[node name="Right" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+texture = ExtResource("2_vxinv")
+region_enabled = true
+region_rect = Rect2(48, 0, 16, 16)
+script = ExtResource("3_l3rgq")
+input = 3
+
+[node name="Up" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_vxinv")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("3_l3rgq")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 9.0
+offset_top = -15.0
+offset_right = 41.0
+offset_bottom = -8.0
+theme_override_fonts/font = ExtResource("4_vw06v")
+clip_text = true
+text_overrun_behavior = 1
+script = ExtResource("5_u1ias")
