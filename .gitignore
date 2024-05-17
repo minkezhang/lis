@@ -1,5 +1,7 @@
 *.tmp
 *.swp
+tmp/*
+tests/logs/*
 
 # Godot 4+ specific ignores
 .godot/
