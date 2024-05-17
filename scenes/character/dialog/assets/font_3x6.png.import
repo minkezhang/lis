@@ -3,12 +3,12 @@
 importer="font_data_image"
 type="FontFile"
 uid="uid://c1ptg86ugn50h"
-path="res://.godot/imported/font_3x6.png-ab445b5cc89022cf2ed906d6f9cafcba.fontdata"
+path="res://.godot/imported/font_3x6.png-a91f8190a5f2fe2abb9c1a80217e2eac.fontdata"
 
 [deps]
 
-source_file="res://scenes/label/assets/font_3x6.png"
-dest_files=["res://.godot/imported/font_3x6.png-ab445b5cc89022cf2ed906d6f9cafcba.fontdata"]
+source_file="res://scenes/character/dialog/assets/font_3x6.png"
+dest_files=["res://.godot/imported/font_3x6.png-a91f8190a5f2fe2abb9c1a80217e2eac.fontdata"]
 
 [params]
 

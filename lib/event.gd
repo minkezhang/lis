@@ -7,7 +7,7 @@ const _libdialog = preload('res://lib/dialog.gd')
 class Event:
 	var _next: Event
 	
-	func chain(e: Event):
+	func chain(e: Event) -> Event:
 		if _next == null:
 			_next = e
 		else:
@@ -18,6 +18,7 @@ class Event:
 		if _next != null:
 			_next.execute()
 
+
 class EmitEvent extends Event:
 	var _eid: String
 	
@@ -25,6 +26,7 @@ class EmitEvent extends Event:
 		_eid = eid
 	
 	func execute():
+		print("emitting: ".format({'eid': _eid}))
 		SignalBus.event_triggered.emit(_eid)
 		
 		super()
@@ -50,6 +52,7 @@ class TimerEvent extends Event:
 		
 		super()
 
+
 class CustomEvent extends Event:
 	var _f: Callable
 	func _init(f: Callable):
@@ -74,20 +77,22 @@ class DialogEvent extends Event:
 		_eid = eid
 		_executed = false
 	
+	
 	func execute():
 		if _executed:
 			return
 		_executed = true
-		
 		var _h = func(l: String):
+			print(l, _eid)
 			if l == _eid:
 				_eof.emit()
 				print("handled: {l}".format({'l': l}))
+				super.execute()
 		SignalBus.eof_reached.connect(_h)
 		
 		_n.set_dialog(_l, _eid)
 		
 		await _eof
-		SignalBus.eof_reached.disconnect(_h)
+		# SignalBus.eof_reached.disconnect(_h)
 		print("exited: {l}".format({'l': _eid}))
-		super()
+

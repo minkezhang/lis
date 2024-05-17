@@ -1,10 +1,12 @@
 extends Object
 
 const _libdialog = preload('res://lib/dialog.gd')
+const _libtest = preload('res://lib/test/test.gd')
 
-class Test:
-	func split_single_line() -> Array:
-		var cs = [
+
+class SplitSingleLine extends _libtest.T:
+	func _init():
+		super('dialog_test/split_single_line', [
 			{
 				'name': 'Trivial',
 				'input_line': '',
@@ -28,15 +30,10 @@ class Test:
 					'some words\nare hard to\nsay',
 				],
 			},
-		]
-		var tests = []
-		for config in cs:
-			tests.append({
-				'name': config['name'],
-				'got': _libdialog._split_single_line(
-					config['input_line'],
-					config['output_line_length'],
-					config['output_n_lines']),
-				'want': config['want'],
-			})
-		return tests
+		])
+	
+	func got(c: Dictionary) -> Variant:
+		return _libdialog._split_single_line(
+			c['input_line'],
+			c['output_line_length'],
+			c['output_n_lines'])

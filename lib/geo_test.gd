@@ -1,11 +1,12 @@
 extends Object
 
 const _libgeo = preload('res://lib/geo.gd')
+const _libtest = preload('res://lib/test/test.gd')
 
 
-class Test:
-	func to_grid() -> Array:
-		var cs = [
+class ToGrid extends _libtest.T:
+	func _init():
+		super('geo_test/to_grid', [
 			{
 				'name': 'TestTrivial',
 				'c': Vector2i(0, 0),
@@ -69,17 +70,14 @@ class Test:
 				'w': Vector2(16, 16),
 				'want': Vector2i(1, 1),
 			},
-		]
-		var tests = []
-		for config in cs:
-			tests.append({
-				'name': config['name'],
-				'got': _libgeo.GeoPosition.new(config['c'], config['d']).to_grid(config['w']),
-				'want': config['want'],
-			})
-		return tests
-	func to_world() -> Array:
-		var cs = [
+		],
+	)
+	func got(c: Dictionary) -> Variant:
+		return _libgeo.GeoPosition.new(c['c'], c['d']).to_grid(c['w'])
+
+class ToWorld extends _libtest.T:
+	func _init():
+		super('geo_test/to_world', [
 			{
 				'name': 'TestTrivial',
 				'c': Vector2(0, 0),
@@ -101,12 +99,8 @@ class Test:
 				'g': Vector2i(0, 0),
 				'want': Vector2(8, 8),
 			},
-		]
-		var tests = []
-		for config in cs:
-			tests.append({
-				'name': config['name'],
-				'got': _libgeo.GeoPosition.new(config['c'], config['d']).to_world(config['g']),
-				'want': config['want'],
-			})
-		return tests
+		],
+	)
+	
+	func got(c: Dictionary) -> Variant:
+		return _libgeo.GeoPosition.new(c['c'], c['d']).to_world(c['g'])

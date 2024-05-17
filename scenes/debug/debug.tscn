@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/debug/debug.gd" id="1_8pwvv"]
 [ext_resource type="Texture2D" uid="uid://btp15pwa28uf6" path="res://scenes/level/controller/assets/debug.png" id="2_vxinv"]
 [ext_resource type="Script" path="res://scenes/debug/ui_sprite.gd" id="3_l3rgq"]
-[ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://scenes/label/assets/font_3x6.png" id="4_vw06v"]
+[ext_resource type="FontFile" uid="uid://c1ptg86ugn50h" path="res://scenes/character/dialog/assets/font_3x6.png" id="4_vw06v"]
 [ext_resource type="Script" path="res://scenes/debug/ui_label.gd" id="5_u1ias"]
 
 [node name="Debug" type="Node2D"]

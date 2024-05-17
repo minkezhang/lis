@@ -45,6 +45,14 @@ func _ready():
 		],
 	}
 	
+	var d = _libevent.DialogEvent.new(
+		_libscript.SCRIPT['FOREST:MAX:00'],
+		$Dialog,
+		'FOREST:MAX:00',
+	).chain(
+		_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
+	)
+	
 	_EVENT_TRIGGERED_HANDLER_LOOKUP = {
 		'LEVEL_LOADED': [
 			_libevent.CustomEvent.new(func(): SignalBus.signal_handlers_installed.emit()),
@@ -55,13 +63,7 @@ func _ready():
 			),
 		],
 		'START_DIALOG': [
-			_libevent.DialogEvent.new(
-				_libscript.SCRIPT['FOREST:MAX:00'],
-				$Dialog,
-				'FOREST:MAX:00',
-			).chain(
-				_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
-			),
+d
 		],
 		'EOF:FOREST:MAX:00': [
 			_libevent.TimerEvent.new(self, 1.0).chain(
@@ -69,6 +71,8 @@ func _ready():
 					_libscript.SCRIPT['FOREST:MAX:01'],
 					$Map/Characters/Max/Dialog,
 				),
+			).chain(
+				_libevent.EmitEvent.new('EOF:FOREST:MAX:01'),
 			),
 		],
 	}
