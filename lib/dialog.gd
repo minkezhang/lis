@@ -3,7 +3,7 @@ extends Object
 # https://github.com/godotengine/godot/issues/86032 for more information.
 class_name _LibDialog
 
-const _libid = preload('res://lib/id.gd')
+const _libuuid = preload('res://lib/uuid.gd')
 
 
 enum C {
@@ -79,12 +79,12 @@ static func _split_lines(
 	return output_lines
 
 
-class LineReader extends _libid.ID:
+class LineReader extends _libuuid.UUID:
 	var _ls: Array
 	var _index: int
 	
 	func _init(line: Line, output_line_length: int = 0, output_n_lines: int = 0):
-		super(line.id())
+		super()
 		
 		_index = 0
 		_ls = _LibDialog._split_lines(line._ls, output_line_length, output_n_lines)
@@ -104,13 +104,13 @@ class LineReader extends _libid.ID:
 		return s
 	
 	
-class Line extends _libid.ID:
+class Line extends _libuuid.UUID:
 	var _c: C
 	var _ls: Array
 	var _index: int
 	
-	func _init(x: String, c: C, lines: Array):
-		super(x)
+	func _init(c: C, lines: Array):
+		super()
 		
 		_c = c
 		_ls = lines.duplicate()

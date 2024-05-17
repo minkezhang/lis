@@ -7,21 +7,19 @@ const _SPRITE_LOOKUP = {
 }
 
 
-func _eof_reached_handler(id: String):
-	eof_reached_handler_base(id)
+func _eof_reached_handler(lid: String):
+	super(lid)
 	
-	if id == $Label.line_id():
-		SignalBus.advance_dialog_requested.disconnect($Label.advance_dialog_text)
+	if lid == _lid:
 		SignalBus.disable_controller_mode_requested.emit(
 			_libcontroller.ControllerMode.DIALOG,
 		)
 
 
-func set_dialog(l: _libdialog.Line, k: String = ''):
-	super(l, k)
-
+func set_dialog(l: _libdialog.Line):
+	super(l)
+	
 	$Frame.set_region_rect(_SPRITE_LOOKUP[l.character()])
-	SignalBus.advance_dialog_requested.connect($Label.advance_dialog_text)
 	SignalBus.enable_controller_mode_requested.emit(
 		_libcontroller.ControllerMode.DIALOG,
 	)
@@ -30,4 +28,5 @@ func set_dialog(l: _libdialog.Line, k: String = ''):
 func _ready():
 	super()
 	
+	SignalBus.advance_dialog_requested.connect($Label.advance_dialog_text)
 	SignalBus.eof_reached.connect(_eof_reached_handler)

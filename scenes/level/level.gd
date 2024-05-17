@@ -16,13 +16,8 @@ func _target_reached_handler(c: Character, p: Vector2i):
 			SignalBus.event_triggered.emit(eid)
 
 
-func _eof_reached_handler(lid: String):
-	return
-	SignalBus.event_triggered.emit('EOF:{l}'.format({'l': lid}))
-
-
 func _event_triggered_handler(eid: String):
-	print("_event_triggered_handler(eid: {l})".format({'l': eid}))
+	print("DEBUG(level.gd): _event_triggered_handler(eid: {eid})".format({'eid': eid}))
 	if eid not in _EVENT_TRIGGERED_HANDLER_LOOKUP:
 		push_warning('unhandled event ID: {eid}'.format({
 			'eid': eid,
@@ -45,25 +40,22 @@ func _ready():
 		],
 	}
 	
-	var d = _libevent.DialogEvent.new(
-		_libscript.SCRIPT['FOREST:MAX:00'],
-		$Dialog,
-		'FOREST:MAX:00',
-	).chain(
-		_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
-	)
-	
 	_EVENT_TRIGGERED_HANDLER_LOOKUP = {
 		'LEVEL_LOADED': [
 			_libevent.CustomEvent.new(func(): SignalBus.signal_handlers_installed.emit()),
 		],
 		'START_TIMER': [
-			_libevent.TimerEvent.new(self, 1.0).chain(
+			_libevent.TimerEvent.new(self, 5.0).chain(
 				_libevent.EmitEvent.new('START_DIALOG'),
 			),
 		],
 		'START_DIALOG': [
-			d
+			_libevent.DialogEvent.new(
+				_libscript.SCRIPT['FOREST:MAX:00'],
+				$Dialog,
+			).chain(
+				_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
+			),
 		],
 		'EOF:FOREST:MAX:00': [
 			_libevent.TimerEvent.new(self, 1.0).chain(
@@ -82,7 +74,6 @@ func _ready():
 		_libcontroller.ControllerMode.MOVE
 	)
 	
-	SignalBus.eof_reached.connect(_eof_reached_handler)
 	SignalBus.event_triggered.connect(_event_triggered_handler)
 	SignalBus.target_reached.connect(_target_reached_handler)
 	

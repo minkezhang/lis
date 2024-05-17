@@ -28,9 +28,9 @@ signal target_requested(
 	target: Vector2i,
 )
 
-signal eof_reached(l: String)
+signal eof_reached(lid: String)
 
-signal event_triggered(e: String)
+signal event_triggered(eid: String)
 
 # Controller signals
 signal enable_controller_mode_requested(mode: _libcontroller.ControllerMode)

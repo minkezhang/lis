@@ -1,6 +1,7 @@
 extends Node2D
 
 const _libgeotest = preload('res://tests/geo_test.gd')
+const _libeventtest = preload('res://tests/event_test.gd')
 const _libdialogtest = preload('res://tests/dialog_test.gd')
 const _libframework = preload('res://tests/framework/framework.gd')
 const _libframeworktest = preload('res://tests/framework_test.gd')
@@ -18,6 +19,8 @@ func _ready():
 		_libdialogtest.SplitSingleLine.new(),
 		_libgeotest.ToGrid.new(),
 		_libgeotest.ToWorld.new(),
+		_libeventtest.Chain.new(),
+		_libeventtest.ExecuteAwait.new()
 	]
 	
 	var s = _libframework.S.new()

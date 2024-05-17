@@ -5,16 +5,19 @@ const _libdialog = preload('res://lib/dialog.gd')
 
 @export var label: Label
 
+var _lid: String
+
 
 # Implementations of the Dialog class will need to connect to this handler.
-func eof_reached_handler_base(id: String):
-	if id == label.line_id():
+func _eof_reached_handler(lid: String):
+	if lid == _lid:
 		visible = false
 
 
-func set_dialog(l: _libdialog.Line, k: String = ''):
+func set_dialog(l: _libdialog.Line):
 	visible = true
-	$Label.set_dialog(l, k)
+	_lid = l.uuid()
+	$Label.set_dialog(l)
 
 
 func _ready():

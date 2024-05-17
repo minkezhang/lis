@@ -1,10 +1,10 @@
 extends Object
 
-const _libid = preload('res://lib/id.gd')
+const _libuuid = preload('res://lib/uuid.gd')
 const _libdialog = preload('res://lib/dialog.gd')
 
 
-class Event:
+class Event extends _libuuid.UUID:
 	var _next: Event
 	
 	func chain(e: Event) -> Event:
@@ -15,84 +15,65 @@ class Event:
 		return self
 	
 	func execute():
-		if _next != null:
-			_next.execute()
-
-
-class EmitEvent extends Event:
-	var _eid: String
-	
-	func _init(eid: String):
-		_eid = eid
-	
-	func execute():
-		print("emitting: ".format({'eid': _eid}))
-		SignalBus.event_triggered.emit(_eid)
-		
-		super()
-
-
-class TimerEvent extends Event:
-	var _n: Node
-	var _time_sec: float
-	
-	func _init(n: Node, time_sec: float):
-		_n = n
-		_time_sec = time_sec
-	
-	func execute():
-		var _t = Timer.new()
-		
-		_n.add_child(_t)
-		_t.start(_time_sec)
-		
-		await _t.timeout
-		
-		_t.queue_free()
-		
-		super()
+		assert(false, 'unimplemented execute method')
 
 
 class CustomEvent extends Event:
 	var _f: Callable
-	func _init(f: Callable):
+	
+	var _singleton: bool
+	var _executed: bool
+	
+	func _init(f: Callable, singleton: bool = true):
 		_f = f
+		_singleton = singleton
 	
 	func execute():
-		self._f.call()
+		if _singleton and _executed:
+			return
 		
-		super()
+		_executed = true
+		
+		if _next == null:
+			_f.call()
+			return
+		
+		await _f.call()
+		_next.execute()
 
 
-class DialogEvent extends Event:
+class TimerEvent extends CustomEvent:
+	func _init(n: Node, time_sec: float, singleton: bool = true):
+		super(func(): await n.get_tree().create_timer(time_sec).timeout, singleton)
+
+
+class EmitEvent extends CustomEvent:
+	func _init(eid: String, singleton: bool = true):
+		super(func(): SignalBus.event_triggered.emit(eid), singleton)
+
+
+class _DialogHelper:
 	var _l: _libdialog.Line
 	var _n: Node
-	var _eid: String
-	var _executed: bool  # dialog is a singleton event
 	signal _eof
 	
-	func _init(l: _libdialog.Line, n: Node, eid: String = ''):
+	func _init(l: _libdialog.Line, n: Node):
 		_l = l
 		_n = n
-		_eid = eid
-		_executed = false
 	
-	
-	func execute():
-		if _executed:
-			return
-		_executed = true
-		var _h = func(l: String):
-			print(l, _eid)
-			if l == _eid:
+	func run():
+		var _h = func(lid: String):
+			if lid == _l.uuid():
 				_eof.emit()
-				print("handled: {l}".format({'l': l}))
-				super.execute()
 		SignalBus.eof_reached.connect(_h)
 		
-		_n.set_dialog(_l, _eid)
+		_n.set_dialog(_l)
 		
 		await _eof
-		# SignalBus.eof_reached.disconnect(_h)
-		print("exited: {l}".format({'l': _eid}))
+		
+		SignalBus.eof_reached.disconnect(_h)
 
+
+class DialogEvent extends CustomEvent:
+	func _init(l: _libdialog.Line, n: Node):
+		super(func(): await _DialogHelper.new(l, n).run(), true)
