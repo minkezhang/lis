@@ -21,37 +21,48 @@ class R:
 		return  _message
 
 
-class T:
+class SingletonT:
 	var _root: Node
 	var _name: String
-	var _configs: Array
 	
-	func _init(n: String, cs: Array, r: Node = Node.new()):
+	func _init(n: String, r: Node = Node.new()):
 		_name = n
-		_configs = cs
 		_root = r
 	
 	func root() -> Node:
 		return _root
 	
-	func got(_c: Dictionary) -> Variant:
-		assert(false, 'unimplemented got method')
-		return R.new('', false)
-	
-	func cmp(a, b: Variant) -> bool:
-		return a == b
-
 	func name() -> String:
 		return _name
 	
-	func test(c: Dictionary) -> R:
-		var g = await got(c)
-		return R.new(c['name'], cmp(c['want'], g), c['want'], g)
+	func run() -> Array:
+		assert(false, 'unimplemented run method')
+		return []
+
+
+class T extends SingletonT:
+	var _configs: Array
+	
+	func _init(n: String, cs: Array, r: Node = Node.new()):
+		super(n, r)
+		
+		_configs = cs
+	
+	func _got(_c: Dictionary) -> Variant:
+		assert(false, 'unimplemented got method')
+		return R.new('', false)
+	
+	func _cmp(a, b: Variant) -> bool:
+		return a == b
+	
+	func _test(c: Dictionary) -> R:
+		var g = await _got(c)
+		return R.new(c['name'], _cmp(c['want'], g), c['want'], g)
 	
 	func run() -> Array:
 		var results = []
 		for c in _configs:
-			results.append(await test(c))
+			results.append(await _test(c))
 		
 		return results
 

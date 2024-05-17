@@ -2,6 +2,7 @@ extends Object
 
 const _libframework = preload('res://tests/framework/framework.gd')
 
+
 class TestScene extends _libframework.T:
 	func _init():
 		super('framework/test_scene', [
@@ -17,7 +18,7 @@ class TestScene extends _libframework.T:
 			},
 		], Node.new())
 	
-	func got(c: Dictionary) -> Variant:
+	func _got(c: Dictionary) -> Variant:
 		var t = Timer.new()
 		root().add_child(t)
 		t.start()

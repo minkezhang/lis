@@ -63,7 +63,7 @@ func _ready():
 			),
 		],
 		'START_DIALOG': [
-d
+			d
 		],
 		'EOF:FOREST:MAX:00': [
 			_libevent.TimerEvent.new(self, 1.0).chain(

@@ -72,7 +72,7 @@ class ToGrid extends _libframework.T:
 			},
 		],
 	)
-	func got(c: Dictionary) -> Variant:
+	func _got(c: Dictionary) -> Variant:
 		return _libgeo.GeoPosition.new(c['c'], c['d']).to_grid(c['w'])
 
 class ToWorld extends _libframework.T:
@@ -102,5 +102,5 @@ class ToWorld extends _libframework.T:
 		],
 	)
 	
-	func got(c: Dictionary) -> Variant:
+	func _got(c: Dictionary) -> Variant:
 		return _libgeo.GeoPosition.new(c['c'], c['d']).to_world(c['g'])

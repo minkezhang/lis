@@ -32,7 +32,7 @@ class SplitSingleLine extends _libframework.T:
 			},
 		])
 	
-	func got(c: Dictionary) -> Variant:
+	func _got(c: Dictionary) -> Variant:
 		return _libdialog._split_single_line(
 			c['input_line'],
 			c['output_line_length'],
