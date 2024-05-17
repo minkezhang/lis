@@ -65,13 +65,9 @@ func _ready():
 			),
 		],
 		'EOF:FOREST:MAX:00': [
-			_libevent.TimerEvent.new(self, 1.0).chain(
-				_libevent.DialogEvent.new(
-					_libscript.SCRIPT['FOREST:MAX:01'],
-					$Map/Characters/Max/Dialog,
-				),
-			).chain(
-				_libevent.EmitEvent.new('EOF:FOREST:MAX:01'),
+			_libevent.DialogEvent.new(
+				_libscript.SCRIPT['FOREST:MAX:01'],
+				$Map/Characters/Max/Dialog,
 			),
 		],
 	}
