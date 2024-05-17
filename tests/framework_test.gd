@@ -1,10 +1,10 @@
 extends Object
 
-const _libtest = preload('res://lib/test/test.gd')
+const _libframework = preload('res://tests/framework/framework.gd')
 
-class TestScene extends _libtest.T:
+class TestScene extends _libframework.T:
 	func _init():
-		super('test/test_scene', [
+		super('framework/test_scene', [
 			{
 				'name': 'Simple',
 				'want': 1,

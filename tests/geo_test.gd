@@ -1,10 +1,10 @@
 extends Object
 
 const _libgeo = preload('res://lib/geo.gd')
-const _libtest = preload('res://lib/test/test.gd')
+const _libframework = preload('res://tests/framework/framework.gd')
 
 
-class ToGrid extends _libtest.T:
+class ToGrid extends _libframework.T:
 	func _init():
 		super('geo_test/to_grid', [
 			{
@@ -75,7 +75,7 @@ class ToGrid extends _libtest.T:
 	func got(c: Dictionary) -> Variant:
 		return _libgeo.GeoPosition.new(c['c'], c['d']).to_grid(c['w'])
 
-class ToWorld extends _libtest.T:
+class ToWorld extends _libframework.T:
 	func _init():
 		super('geo_test/to_world', [
 			{

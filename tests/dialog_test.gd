@@ -1,10 +1,10 @@
 extends Object
 
 const _libdialog = preload('res://lib/dialog.gd')
-const _libtest = preload('res://lib/test/test.gd')
+const _libframework = preload('res://tests/framework/framework.gd')
 
 
-class SplitSingleLine extends _libtest.T:
+class SplitSingleLine extends _libframework.T:
 	func _init():
 		super('dialog_test/split_single_line', [
 			{

@@ -79,24 +79,28 @@ class S extends Node:
 		for t in ts:
 			add_child(t.root())
 		
+		var success = true
 		for t in ts:
 			_print('==== RUN\t{name}'.format({
 				'name': t.name()
 			}))
-			var success = true
+			var s = true
 			var time_start = Time.get_ticks_msec()
 			var results = await t.run()
 			for r in results:
-				success = success and r.success()
+				s = s and r.success()
 				if not r.success():
 					_print(r.message())
 			var time_delta = Time.get_ticks_msec() - time_start
 			
 			_print('---- {result}\t{name} ({delta}s)'.format({
-				'result': 'PASS' if success else 'FAIL',
+				'result': 'PASS' if s else 'FAIL',
 				'name': t.name(),
 				'delta': '%0.02f' % (time_delta / 1e3),
 			}))
-
+			
+			success = success and s
+		
+		_print('PASS' if success else 'FAIL')
 		if _fp != null:
 			_fp.close()
