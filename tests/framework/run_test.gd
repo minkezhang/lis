@@ -22,6 +22,9 @@ func _ready():
 	
 	var s = _libframework.S.new()
 	add_child(s)
-	s.run(tests + (
-		_DEBUG_TESTS if debug else []
-	))
+	await s.run((
+	_DEBUG_TESTS if debug else []
+	) + tests)
+	
+	await get_tree().create_timer(1.0).timeout
+	get_tree().quit()
