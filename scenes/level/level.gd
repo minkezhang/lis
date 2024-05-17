@@ -72,6 +72,7 @@ func _ready():
 		],
 	}
 	
+	$Map/Characters/Max.speed = 1
 	
 	SignalBus.event_triggered.connect(_event_triggered_handler)
 	SignalBus.target_reached.connect(_target_reached_handler)
@@ -83,3 +84,4 @@ func _process(_delta):
 	$Camera.global_position = $Map/Characters/Max.global_position
 	$Dialog.position = $Camera.position
 	$Debug.position = $Camera.position + Vector2(64, -56)
+	$Environment.position = $Camera.position

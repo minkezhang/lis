@@ -12,12 +12,12 @@ const _libpose = preload('res://lib/pose.gd')
 const _libgeo = preload('res://lib/geo.gd')
 
 @export var animation_sprite: AnimatedSprite2D
+@export var speed: float = 3.0
 
 var _tween: Tween
 var _gp: _libgeo.GeoPosition = _libgeo.GeoPosition.new(_GRID_CENTER_OFFSET, _libgeo.GRID_DIMENSION)
 
 const _GRID_CENTER_OFFSET = Vector2(_libgeo.GRID_DIMENSION, _libgeo.GRID_DIMENSION) / 2
-const _SPEED = 3.0
 const _POLL_RATE_LIMIT = 15.0
 
 var _p: Poseable
@@ -42,7 +42,7 @@ func _global_grid_position():
 func animate_move(o: _libgeo.Orientation, is_free: bool):
 	var source = _global_grid_position()
 	var target = source + Vector2i(_libgeo.ORIENTATION_RAY[o]) if is_free else source
-	var duration = (1.0 if is_free else 0.5) / _SPEED
+	var duration = (1.0 if is_free else 0.5) / speed
 	
 	_p.set_state(_libpose.Pose.WALK, o)
 	_tween = get_tree().create_tween()
