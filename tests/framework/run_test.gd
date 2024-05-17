@@ -26,5 +26,4 @@ func _ready():
 	_DEBUG_TESTS if debug else []
 	) + tests)
 	
-	await get_tree().create_timer(1.0).timeout
 	get_tree().quit()
