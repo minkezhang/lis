@@ -48,3 +48,6 @@ func _ready():
 	SignalBus.disable_controller_mode_requested.connect(
 		func(m: _libcontroller.ControllerMode): _toggle_controller_mode_requested_handler(m, false),
 	)
+	
+	await SignalBus.signal_handlers_installed
+	SignalBus.debug_controller_mode_changed.emit(_curr_controller_mode)

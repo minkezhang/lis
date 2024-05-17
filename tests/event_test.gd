@@ -10,7 +10,7 @@ class E extends _libevent.Event:
 	var _eid: String
 	
 	func _init(eid: String):
-		super()
+		super(func(): return)
 		_eid = eid
 	func _cmp(other: E) -> bool:
 		if other == null:
@@ -75,8 +75,8 @@ class ExecuteAwait extends _libframework.SingletonT:
 			_timer['b'] = Time.get_ticks_usec()
 			_done.emit()
 		
-		var a = _libevent.CustomEvent.new(_af).chain(
-			_libevent.CustomEvent.new(_bf),
+		var a = _libevent.Event.new(_af).chain(
+			_libevent.Event.new(_bf),
 		)
 		
 		a.execute()

@@ -42,7 +42,7 @@ func _ready():
 	
 	_EVENT_TRIGGERED_HANDLER_LOOKUP = {
 		'LEVEL_LOADED': [
-			_libevent.CustomEvent.new(func(): SignalBus.signal_handlers_installed.emit()),
+			_libevent.Event.new(func(): SignalBus.signal_handlers_installed.emit()),
 		],
 		'START_TIMER': [
 			_libevent.TimerEvent.new(self, 5.0).chain(
@@ -53,6 +53,13 @@ func _ready():
 			_libevent.DialogEvent.new(
 				_libscript.SCRIPT['FOREST:MAX:00'],
 				$Dialog,
+			).chain(
+				# TODO(minkezhang): Set default controller config to MENU.
+				_libevent.Event.new(
+					func(): SignalBus.enable_controller_mode_requested.emit(
+						_libcontroller.ControllerMode.MOVE
+					)
+				),
 			).chain(
 				_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
 			),
@@ -69,10 +76,6 @@ func _ready():
 		],
 	}
 	
-	# TODO(minkezhang): Set default controller config to MENU.
-	SignalBus.enable_controller_mode_requested.emit(
-		_libcontroller.ControllerMode.MOVE
-	)
 	
 	SignalBus.event_triggered.connect(_event_triggered_handler)
 	SignalBus.target_reached.connect(_target_reached_handler)
