@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cupff7wk53utd"]
-
-[ext_resource type="Script" path="res://tests/framework/run_test.gd" id="1_5qgt7"]
-
-[node name="Test" type="Node2D"]
-script = ExtResource("1_5qgt7")
-debug = true

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cupff7wk53utd"]
+
+[ext_resource type="Script" path="res://tests/framework/executor.gd" id="1_riu0x"]
+
+[node name="Executor" type="Node2D"]
+script = ExtResource("1_riu0x")
+debug = true
