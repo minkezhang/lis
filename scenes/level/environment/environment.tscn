@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://dj2ejcricd4oj"]
+
+[ext_resource type="Texture2D" uid="uid://byvngl2lcwemh" path="res://scenes/level/environment/assets/rain.png" id="1_ew6ky"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcpme"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhxrm"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nsxk"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0872x"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l65xt"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0el3j"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rs8r"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2wfq"]
+atlas = ExtResource("1_ew6ky")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l6fh7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcpme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhxrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nsxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0872x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l65xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0el3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rs8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2wfq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Environment" type="Node2D"]
+
+[node name="Rain" type="Node2D" parent="."]
+
+[node name="Animation6" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(24, -40)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation5" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-40, 24)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation4" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-40, 88)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation3" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(88, -40)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation2" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(24, 88)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-40, -40)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation9" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(88, 24)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation8" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(24, 24)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation7" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(88, 88)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation10" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-104, 88)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation11" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-104, -40)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation12" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-104, 24)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation13" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-40, -104)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation14" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(24, -104)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation15" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(88, -104)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"
+
+[node name="Animation16" type="AnimatedSprite2D" parent="Rain"]
+position = Vector2(-104, -104)
+sprite_frames = SubResource("SpriteFrames_l6fh7")
+autoplay = "default"

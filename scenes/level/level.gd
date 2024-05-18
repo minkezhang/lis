@@ -72,7 +72,7 @@ func _ready():
 		],
 	}
 	
-	$Map/Characters/Max.speed = 1
+	$Map/Characters/Max.speed = 2
 	
 	SignalBus.event_triggered.connect(_event_triggered_handler)
 	SignalBus.target_reached.connect(_target_reached_handler)
