@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://b6mm4qr2d1cfx"]
+[gd_scene load_steps=15 format=3 uid="uid://b6mm4qr2d1cfx"]
 
 [ext_resource type="Script" path="res://scenes/level/overworld/map/map.gd" id="1_w0cgk"]
 [ext_resource type="Texture2D" uid="uid://c0holyctlv0og" path="res://scenes/level/overworld/map/assets/terrain.png" id="2_b4jic"]
+[ext_resource type="Script" path="res://scenes/level/overworld/map/night.gd" id="2_kbkmg"]
 [ext_resource type="Texture2D" uid="uid://byvngl2lcwemh" path="res://scenes/level/overworld/map/assets/rain.png" id="3_b8cwf"]
 [ext_resource type="PackedScene" uid="uid://di7d2i5j3myww" path="res://scenes/character/max/max.tscn" id="3_d146q"]
 [ext_resource type="Texture2D" uid="uid://crwd40pehy5rq" path="res://scenes/level/overworld/map/assets/pathing.png" id="4_vr8sl"]
@@ -317,6 +318,15 @@ sources/0 = SubResource("TileSetAtlasSource_yeyi0")
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_w0cgk")
+
+[node name="Night" type="ColorRect" parent="."]
+z_index = 5
+offset_left = -8.0
+offset_top = -264.0
+offset_right = 920.0
+offset_bottom = 664.0
+color = Color(0.184314, 0.219608, 0.4, 0.25098)
+script = ExtResource("2_kbkmg")
 
 [node name="World" type="TileMap" parent="."]
 y_sort_enabled = true
