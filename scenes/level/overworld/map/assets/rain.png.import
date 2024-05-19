@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://byvngl2lcwemh"
-path="res://.godot/imported/rain.png-939205836df1437b826393d180dcbd88.ctex"
+path="res://.godot/imported/rain.png-cda47ab95e5cc457f00733e685e37b66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/level/environment/assets/rain.png"
-dest_files=["res://.godot/imported/rain.png-939205836df1437b826393d180dcbd88.ctex"]
+source_file="res://scenes/level/overworld/map/assets/rain.png"
+dest_files=["res://.godot/imported/rain.png-cda47ab95e5cc457f00733e685e37b66.ctex"]
 
 [params]
 
