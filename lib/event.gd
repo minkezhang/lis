@@ -16,6 +16,19 @@ class Event extends _libuuid.UUID:
 		_f = f
 		_singleton = singleton
 	
+	# In order to chain an event, the _next node must be synchronous.
+	# TODO(minkezhang): Consider enforcing a E.new(F) pattern, where
+	#
+	# class F:
+	#   signal done
+	#   func execute():
+	#     assert(false, "unimplemented")
+	#
+	# Custom logic must implement the F.execute() method and therefore explicitly
+	# consider when F.done.emit() should be called. E.execute() will await on
+	# F.done() before calling _next.
+	#
+	# This is probably overengineered unless a lot more events need to be added.
 	func chain(e: Event) -> Event:
 		if _next == null:
 			_next = e
