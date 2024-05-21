@@ -3,8 +3,8 @@ extends Node2D
 const _libscript = preload('res://lib/script.gd')
 const _libgeo = preload('res://lib/geo.gd')
 const _libcontroller = preload('res://lib/controller.gd')
-const _libevent = preload('res://lib/event.gd')
-
+const _libevent = preload('res://lib/event/event.gd')
+const _libworkload = preload('res://lib/event/workload.gd')
 
 var _EVENT_TRIGGERED_HANDLER_LOOKUP = {}
 var _TARGET_REACHED_HANDLER_LOOKUP = {}
@@ -42,10 +42,10 @@ func _ready():
 	
 	_EVENT_TRIGGERED_HANDLER_LOOKUP = {
 		'LEVEL_LOADED': [
-			_libevent.Event.new(func(): SignalBus.signal_handlers_installed.emit()),
+			_libevent.E(func(): SignalBus.signal_handlers_installed.emit()),
 		],
 		'START_TIMER': [
-			_libevent.TimerEvent.new(self, 5.0).chain(
+			_libevent.TimerEvent.new(self, 1.0).chain(
 				_libevent.EmitEvent.new('START_DIALOG'),
 			),
 		],
@@ -56,13 +56,27 @@ func _ready():
 			).chain(
 				# TODO(minkezhang): Set default controller config to MENU.
 				_libevent.Event.new(
-					func(): SignalBus.enable_controller_mode_requested.emit(
-						_libcontroller.ControllerMode.MOVE
-					)
+					_libworkload.F(
+						func(): SignalBus.enable_controller_mode_requested.emit(
+							_libcontroller.ControllerMode.MOVE
+						),
+					),
 				),
 			).chain(
 				_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
 			),
+			_libevent.Event.new(_libworkload.Animator.new(
+				$Map/Environment/Ambient,
+				[
+					_libworkload.AnimatorConfig.new('color', Color(0xfffffffff), 0.05),
+					_libworkload.AnimatorConfig.new('color', Color(0xfffffff88), 0.25),
+					_libworkload.AnimatorConfig.new(
+						'color',
+						$Map/Environment/Ambient._COLORS[$Map/Environment/Ambient.mode],
+						0.5,
+					),
+				]
+			)),
 		],
 		'EOF:FOREST:MAX:00': [
 			_libevent.DialogEvent.new(

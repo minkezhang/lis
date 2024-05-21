@@ -10,7 +10,7 @@ extends Node
 
 const _libgeo = preload('res://lib/geo.gd')
 const _libcontroller = preload('res://lib/controller.gd')
-const _libevent = preload('res://lib/event.gd')
+const _libevent = preload('res://lib/event/event.gd')
 const _libdialog = preload('res://lib/dialog.gd')
 
 

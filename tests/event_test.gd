@@ -3,14 +3,15 @@ extends Object
 # https://github.com/godotengine/godot/issues/86032 for more information.
 class_name _EventTest
 
-const _libevent = preload('res://lib/event.gd')
+const _libevent = preload('res://lib/event/event.gd')
+const _libworkload = preload('res://lib/event/workload.gd')
 const _libframework = preload('res://tests/framework/framework.gd')
 
 class E extends _libevent.Event:
 	var _eid: String
 	
 	func _init(eid: String):
-		super(func(): return)
+		super(_libworkload.F(func(): return))
 		_eid = eid
 	func _cmp(other: E) -> bool:
 		if other == null:
@@ -75,8 +76,8 @@ class ExecuteAwait extends _libframework.SingletonT:
 			_timer['b'] = Time.get_ticks_usec()
 			_done.emit()
 		
-		var a = _libevent.Event.new(_af).chain(
-			_libevent.Event.new(_bf),
+		var a = _libevent.Event.new(_libworkload.F(_af)).chain(
+			_libevent.Event.new(_libworkload.F(_bf)),
 		)
 		
 		a.execute()
