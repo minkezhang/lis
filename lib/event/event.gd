@@ -23,11 +23,13 @@ const _libuuid = preload('res://lib/uuid.gd')
 class E extends _libuuid.UUID:
 	var _next: E
 	var _f: Callable  # func(done: Signal)
-	var _name: String
+	var _is_singleton: bool
+	var _is_valid: bool
 	
-	func _init(f: Callable, name: String = ''):
+	func _init(f: Callable, singleton: bool = false):
 		_f = f
-		_name = name
+		_is_singleton = singleton
+		_is_valid = true
 	
 	# In order to chain an event, the _next node must be synchronous.
 	func chain(e: E) -> E:
@@ -38,6 +40,11 @@ class E extends _libuuid.UUID:
 		return self
 	
 	func execute():
+		if not _is_valid:
+			return
+		if _is_singleton:
+			_is_valid = false
+		
 		await _f.call()
 		if _next != null:
 			await _next.execute()

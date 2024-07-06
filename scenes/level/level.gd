@@ -46,7 +46,7 @@ func _ready():
 			),
 		],
 		'START_TIMER': [
-			_libevent.E.new(_libworkload.Timer(self, 1.0)).chain(
+			_libevent.E.new(_libworkload.Timer(self, 1.0), true).chain(
 				_libevent.E.new(_libworkload.EventEmitter('START_DIALOG')),
 			),
 		],

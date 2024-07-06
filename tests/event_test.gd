@@ -5,8 +5,10 @@ const _libevent = preload('res://lib/event/event.gd')
 
 
 class _E extends _libevent.E:
+	var _name: String
 	func _init(name: String):
-		super(func(): return, name)
+		_name = name
+		super(func(): return)
 
 
 class Chain extends _libframework.T:
