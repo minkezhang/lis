@@ -70,8 +70,6 @@ class _Lightning:
 
 
 func _ready():
-	# This spans the entire screen, not just the viewport.
-	size = get_tree().get_root().size
 	color = _COLORS[mode]
 	
 	_libevent.E.new(func(): _Lightning.new(self).payload()).execute()

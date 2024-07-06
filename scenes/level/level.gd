@@ -82,3 +82,5 @@ func _process(_delta):
 	$Camera.global_position = $Map/Characters/Max.global_position
 	$Dialog.position = $Camera.position
 	$Debug.position = $Camera.position + Vector2(64, -56)
+	$Map/Environment/Ambient.size = DisplayServer.window_get_size()
+	$Map/Environment/Ambient.position = $Camera.position - ($Map/Environment/Ambient.size / 2)

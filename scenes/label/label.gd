@@ -19,7 +19,6 @@ func _ready():
 		add_child(_t)
 
 
-
 # set_dialog queues up a script block for display in the Label.text field. The
 # Line.uuid() is passed along to the SignalBus.eof_reached signal to indicate
 # which line has been completed.
