@@ -7,6 +7,14 @@ const _libscript = preload('res://lib/script.gd')
 # _moves is a dict of { target: source } tuples
 var _moves: Dictionary = {}
 
+
+func _interact_requested_handler(
+	c: Character,
+	target: Vector2i,
+):
+	print("DEBUG(map.gd): ", c, " requested interaction with tile ", target)
+
+
 func _target_requested_handler(
 	c: Character,
 	o: _libgeo.Orientation,
@@ -41,3 +49,4 @@ func _character_created_handler(c: Character, p: Vector2i):
 func _ready():
 	SignalBus.target_requested.connect(_target_requested_handler)
 	SignalBus.target_reached.connect(_target_reached_handler)
+	SignalBus.interact_requested.connect(_interact_requested_handler)

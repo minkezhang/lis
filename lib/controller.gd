@@ -54,19 +54,23 @@ class MoveControllerConfig extends NullControllerConfig:
 	
 	func n_handler(m: ControllerInputAction):
 		if m == ControllerInputAction.PRESSED:
-			SignalBus.move_requested.emit(_libgeo.Orientation.N)
+			SignalBus.input_move_requested.emit(_libgeo.Orientation.N)
 	
 	func e_handler(m: ControllerInputAction):
 		if m == ControllerInputAction.PRESSED:
-			SignalBus.move_requested.emit(_libgeo.Orientation.E)
+			SignalBus.input_move_requested.emit(_libgeo.Orientation.E)
 	
 	func s_handler(m: ControllerInputAction):
 		if m == ControllerInputAction.PRESSED:
-			SignalBus.move_requested.emit(_libgeo.Orientation.S)
+			SignalBus.input_move_requested.emit(_libgeo.Orientation.S)
 	
 	func w_handler(m: ControllerInputAction):
 		if m == ControllerInputAction.PRESSED:
-			SignalBus.move_requested.emit(_libgeo.Orientation.W)
+			SignalBus.input_move_requested.emit(_libgeo.Orientation.W)
+	
+	func accept_handler(m: ControllerInputAction):
+		if m == ControllerInputAction.PRESSED:
+			SignalBus.input_interact_requested.emit()
 
 
 class DialogControllerConfig extends NullControllerConfig:
@@ -75,4 +79,4 @@ class DialogControllerConfig extends NullControllerConfig:
 	
 	func accept_handler(m: ControllerInputAction):
 		if m == ControllerInputAction.PRESSED:
-			SignalBus.advance_dialog_requested.emit()
+			SignalBus.input_advance_dialog_requested.emit()

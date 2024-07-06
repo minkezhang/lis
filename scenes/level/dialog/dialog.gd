@@ -28,5 +28,5 @@ func set_dialog(l: _libdialog.Line):
 func _ready():
 	super()
 	
-	SignalBus.advance_dialog_requested.connect($Label.advance_dialog_text)
+	SignalBus.input_advance_dialog_requested.connect($Label.advance_dialog_text)
 	SignalBus.eof_reached.connect(_eof_reached_handler)

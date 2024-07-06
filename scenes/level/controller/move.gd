@@ -36,3 +36,6 @@ func _process(delta):
 	if Input.is_action_pressed('ui_down'):
 		_controller.s_handler(_libcontroller.ControllerInputAction.PRESSED)
 		_delta_accum = 0
+	if Input.is_action_pressed("ui_accept"):
+		_controller.accept_handler(_libcontroller.ControllerInputAction.PRESSED)
+		_delta_accum = 0

@@ -28,6 +28,8 @@ signal target_requested(
 	target: Vector2i,
 )
 
+signal interact_requested(c: Character, target: Vector2i)
+
 signal eof_reached(lid: String)
 
 signal event_triggered(eid: String)
@@ -35,8 +37,9 @@ signal event_triggered(eid: String)
 # Controller signals
 signal enable_controller_mode_requested(mode: _libcontroller.ControllerMode)
 signal disable_controller_mode_requested(mode: _libcontroller.ControllerMode)
-signal move_requested(direction: _libgeo.Orientation)
-signal advance_dialog_requested()
+signal input_move_requested(direction: _libgeo.Orientation)
+signal input_advance_dialog_requested()
+signal input_interact_requested()
 
 signal debug_input_detected(
 	action: _libcontroller.ControllerInputAction,
