@@ -17,7 +17,6 @@ func _target_reached_handler(c: Character, p: Vector2i):
 
 
 func _event_triggered_handler(eid: String):
-	print("DEBUG(level.gd): _event_triggered_handler(eid: {eid})".format({'eid': eid}))
 	if eid not in _EVENT_TRIGGERED_HANDLER_LOOKUP:
 		push_warning('unhandled event ID: {eid}'.format({
 			'eid': eid,
@@ -42,47 +41,32 @@ func _ready():
 	
 	_EVENT_TRIGGERED_HANDLER_LOOKUP = {
 		'LEVEL_LOADED': [
-			_libevent.E(func(): SignalBus.signal_handlers_installed.emit()),
+			_libevent.E.new(
+				func(): SignalBus.signal_handlers_installed.emit(),
+			),
 		],
 		'START_TIMER': [
-			_libevent.TimerEvent.new(self, 1.0).chain(
-				_libevent.EmitEvent.new('START_DIALOG'),
+			_libevent.E.new(_libworkload.Timer(self, 1.0)).chain(
+				_libevent.E.new(_libworkload.EventEmitter('START_DIALOG')),
 			),
 		],
 		'START_DIALOG': [
-			_libevent.DialogEvent.new(
-				_libscript.SCRIPT['FOREST:MAX:00'],
+			_libevent.E.new(_libworkload.DialogRenderer(
 				$Dialog,
-			).chain(
-				# TODO(minkezhang): Set default controller config to MENU.
-				_libevent.Event.new(
-					_libworkload.F(
-						func(): SignalBus.enable_controller_mode_requested.emit(
-							_libcontroller.ControllerMode.MOVE
-						),
-					),
+				_libscript.SCRIPT['FOREST:MAX:00'],
+			)).chain(_libevent.E.new(
+				func(): SignalBus.enable_controller_mode_requested.emit(
+						_libcontroller.ControllerMode.MOVE,
 				),
-			).chain(
-				_libevent.EmitEvent.new('EOF:FOREST:MAX:00'),
+			)).chain(_libevent.E.new(_libworkload.Timer(self, 1.0)
+			)).chain(_libevent.E.new(_libworkload.EventEmitter('EOF:FOREST:MAX:00'))
 			),
-			_libevent.Event.new(_libworkload.Animator.new(
-				$Map/Environment/Ambient,
-				[
-					_libworkload.AnimatorConfig.new('color', Color(0xfffffffff), 0.05),
-					_libworkload.AnimatorConfig.new('color', Color(0xfffffff88), 0.25),
-					_libworkload.AnimatorConfig.new(
-						'color',
-						$Map/Environment/Ambient._COLORS[$Map/Environment/Ambient.mode],
-						0.5,
-					),
-				]
-			)),
 		],
 		'EOF:FOREST:MAX:00': [
-			_libevent.DialogEvent.new(
-				_libscript.SCRIPT['FOREST:MAX:01'],
+			_libevent.E.new(_libworkload.DialogRenderer(
 				$Map/Characters/Max/Dialog,
-			),
+				_libscript.SCRIPT['FOREST:MAX:01'],
+			)),
 		],
 	}
 	

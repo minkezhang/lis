@@ -1,7 +1,7 @@
 extends Object
 
 
-class R:
+class R:  ## Result
 	var _message: String
 	var _success: bool
 	
@@ -40,6 +40,7 @@ class SingletonT:
 		return []
 
 
+## T is a config-driven test.
 class T extends SingletonT:
 	var _configs: Array
 	
@@ -67,7 +68,7 @@ class T extends SingletonT:
 		return results
 
 
-class S extends Node:
+class S extends Node:  ## Stats
 	var _fp: FileAccess
 	func _init():
 		var time_start = Time.get_datetime_dict_from_system()

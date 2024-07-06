@@ -1,26 +1,36 @@
 extends Object
 
 const _libuuid = preload('res://lib/uuid.gd')
-const _libdialog = preload('res://lib/dialog.gd')
-const _libworkload = preload('res://lib/event/workload.gd')
 
-
-class Event extends _libuuid.UUID:
-	var _next: Event
+## E describes an event model for the game.
+##
+## The event accepts a payload function with takes a signal as its only input,
+## which the payload write to after completion. This signal is not directly
+## accessible by the event caller. Instead, the event itself writes to a
+## separate signal E.done.
+##
+## Events may be chained together to run synchronously, e.g.
+##   E.chain(F).chain(G)
+## which is identical to
+##   E.chain(F.chain(G))
+##
+## For either of the above invocations, calling
+##   E.execute()
+## will execute the events in E -> F -> G order.
+##
+## Example:
+##   await E(func(): return).execute()
+class E extends _libuuid.UUID:
+	var _next: E
+	var _f: Callable  # func(done: Signal)
+	var _name: String
 	
-	var _f: _libworkload.W
-	
-	var _singleton: bool
-	var _executed: bool
-	
-	signal done
-	
-	func _init(f: _libworkload.W, singleton: bool = true):
+	func _init(f: Callable, name: String = ''):
 		_f = f
-		_singleton = singleton
+		_name = name
 	
 	# In order to chain an event, the _next node must be synchronous.
-	func chain(e: Event) -> Event:
+	func chain(e: E) -> E:
 		if _next == null:
 			_next = e
 		else:
@@ -28,35 +38,6 @@ class Event extends _libuuid.UUID:
 		return self
 	
 	func execute():
-		if _singleton and _executed:
-			return
-		
-		_executed = true
-		
-		_f.execute()
-		await _f.done
-		
+		await _f.call()
 		if _next != null:
-			_next.execute()
-			await _next.done
-		
-		done.emit()
-
-
-static func E(f: Callable, singleton: bool = true) -> Event:
-	return Event.new(_libworkload.F(f), singleton)
-
-
-class TimerEvent extends Event:
-	func _init(n: Node, time_sec: float, singleton: bool = true):
-		super(_libworkload.T.new(n, time_sec), singleton)
-
-
-class EmitEvent extends Event:
-	func _init(eid: String, singleton: bool = true):
-		super(_libworkload.EventEmitter.new(eid), singleton)
-
-
-class DialogEvent extends Event:
-	func _init(l: _libdialog.Line, n: Node):
-		super(_libworkload.DialogRenderer.new(n, l), true)
+			await _next.execute()

@@ -1,38 +1,31 @@
 extends Object
 
+const _libevent = preload('res://lib/event/event.gd')
 const _libdialog = preload('res://lib/dialog.gd')
 
 
-class W:
-	signal done
+static func Timer(n: Node, time_sec: float) -> Callable:
+	var f = func():
+		await n.get_tree().create_timer(time_sec).timeout
 	
-	func execute():
-		assert(false, 'unimplemented Function.execute() method')
+	return f
 
 
-class _F extends W:
-	var _f: Callable
+static func EventEmitter(eid: String) -> Callable:
+	var f = func():
+		SignalBus.event_triggered.emit(eid)
 	
-	func _init(f: Callable):
-		_f = f
-	
-	func execute():
-		await _f.call()
-		done.emit()
+	return f
 
 
-static func F(f: Callable):
-	return _F.new(f)
+static func DialogRenderer(n: Node, l: _libdialog.Line) -> Callable:
+	return func():
+		await _DialogRenderer.new(n, l).payload()
 
 
-class T extends _F:
-	func _init(n: Node, time_sec: float):
-		super(func(): await n.get_tree().create_timer(time_sec).timeout)
-
-
-class EventEmitter extends _F:
-	func _init(eid: String):
-		super(func(): SignalBus.event_triggered.emit(eid))
+static func Animator(n: Node, animations: Array):
+	return func():
+		await _Animator.new(n, animations).payload()
 
 
 class AnimatorConfig:
@@ -46,28 +39,29 @@ class AnimatorConfig:
 		_duration = d
 
 
-class DialogRenderer extends W:
+class _DialogRenderer:
 	var _l: _libdialog.Line
 	var _n: Node
+	signal _dialog_finished
 	
 	func _init(n: Node, l: _libdialog.Line):
 		_n = n
 		_l = l
 	
-	func execute():
-		var _h = func(lid: String):
+	func payload():
+		var h = func(lid: String):
 			if lid == _l.uuid():
-				done.emit()
-		
-		SignalBus.eof_reached.connect(_h)
-		
+				_dialog_finished.emit()
+	
+		SignalBus.eof_reached.connect(h)
+	
 		_n.set_dialog(_l)
-		await done
-		
-		SignalBus.eof_reached.disconnect(_h)
+		await _dialog_finished
+	
+		SignalBus.eof_reached.disconnect(h)
 
 
-class Animator extends W:
+class _Animator:
 	var _n: Node
 	var _animations: Array
 	
@@ -75,15 +69,10 @@ class Animator extends W:
 		_n = n
 		_animations = animations
 	
-	func _execute_helper(animations: Array):
-		if not animations.size():
-			done.emit()
-			return
-		
-		var a = animations.pop_front()
-		var t = _n.get_tree().create_tween()
-		t.tween_property(_n, a._property, a._value, a._duration)
-		t.tween_callback(func(): _execute_helper(animations))
-	
-	func execute():
-		_execute_helper(_animations)
+	func payload():
+		var l = _animations.duplicate()
+		while l.size():
+			var a = l.pop_front()
+			var t = _n.get_tree().create_tween()
+			t.tween_property(_n, a._property, a._value, a._duration)
+			await t.finished
