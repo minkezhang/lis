@@ -36,6 +36,28 @@ class Chain extends _libframework.T:
 		return g
 	
 
+
+class Serialized extends _libframework.SingletonT:
+	func _init():
+		super('event/serialized')
+	
+	func run() -> Array:
+		var x = {'val': 0}
+		var f = func():
+			await root().get_tree().create_timer(1.0).timeout
+			x['val'] += 1
+		var e = _libevent.E.new(f, false, true)
+		
+		e.execute()
+		e.execute()
+		
+		await root().get_tree().create_timer(2.0).timeout
+		
+		return [
+			_libframework.R.new('E.execute()', x['val'] == 1, 1, x['val'])
+		]
+
+
 class Simple extends _libframework.SingletonT:
 	func _init():
 		super('event/simple')
@@ -49,6 +71,7 @@ class Simple extends _libframework.SingletonT:
 		return [
 			_libframework.R.new('E.execute()', x['val'], true, false),
 		]
+
 
 class EventTimer extends _libframework.SingletonT:
 	func _init():

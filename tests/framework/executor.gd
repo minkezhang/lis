@@ -23,6 +23,7 @@ func _ready():
 		_libeventtest.Simple.new(),
 		_libeventtest.EventTimer.new(),
 		_libeventtest.Chain.new(),
+		_libeventtest.Serialized.new(),
 	]
 	
 	var s = _libframework.S.new()
