@@ -30,8 +30,6 @@ class E extends _libuuid.UUID:
 	var _is_running: bool
 	var _is_serialized: bool
 	
-	signal success
-	
 	func _init(f: Callable, singleton: bool = false, serialized: bool = false):
 		_f = f
 		
@@ -63,16 +61,7 @@ class E extends _libuuid.UUID:
 		
 		await _f.call()
 		
-		if _next == null:
-			_is_running = false
-			success.emit()
-			return
-		
-		var g = func():
-			success.emit()
-		_next.success.connect(g)
-		await _next.execute()
-		_next.success.disconnect(g)
+		if _next != null:
+			await _next.execute()
 		
 		_is_running = false
-		return
