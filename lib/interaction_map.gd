@@ -1,6 +1,6 @@
 extends Object
 
-class Obstacle:
+class InteractionMap:
 	var _static = {}
 	var _dynamic = {}
 	
