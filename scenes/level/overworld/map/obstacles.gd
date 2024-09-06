@@ -1,4 +1,4 @@
-extends TileMap
+extends TileMapLayer
 
 const _libobstacle = preload('res://lib/obstacle.gd')
 
@@ -12,7 +12,7 @@ func _ready():
 	
 	var o = {}
 	
-	for t in get_used_cells(0):
+	for t in get_used_cells():
 		o[t] = true
 	
 	obstacles = _libobstacle.Obstacle.new(o)

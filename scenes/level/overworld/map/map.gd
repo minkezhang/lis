@@ -24,10 +24,10 @@ func _target_requested_handler(
 	var d = (source - target).abs()
 	assert(d.x + d.y == 1, "source must be adjacent to target")
 	
-	var is_free = not $Obstacles.obstacles.query(target)
+	var is_free = not $Metadata/Obstacles.obstacles.query(target)
 	if is_free:
 		# Reserve target space.
-		$Obstacles.obstacles.mark([source, target])
+		$Metadata/Obstacles.obstacles.mark([source, target])
 		_moves[target] = source
 	c.animate_move(o, is_free)
 
@@ -36,9 +36,9 @@ func _target_reached_handler(
 	_c: Character,
 	target: Vector2i,
 ):
-	$Obstacles.obstacles.mark([target])
+	$Metadata/Obstacles.obstacles.mark([target])
 	if target in _moves:
-		$Obstacles.obstacles.clear([_moves[target]])
+		$Metadata/Obstacles.obstacles.clear([_moves[target]])
 		_moves.erase(target)
 
 
