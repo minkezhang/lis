@@ -14,7 +14,7 @@ func _toggle_controller_mode_requested_handler(
 	mode: _libcontroller.ControllerMode,
 	target_enabled_state: bool,
 ):
-	assert(mode != _libcontroller.ControllerMode.DEBUG, "cannot manually set to the debug controller type")
+	assert(mode != _libcontroller.ControllerMode.DEBUG, 'cannot manually set to the debug controller type')
 	# Do something only if a change was detected.
 	if (
 		target_enabled_state and mode == _curr_controller_mode

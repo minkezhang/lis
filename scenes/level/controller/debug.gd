@@ -16,27 +16,28 @@ func _ready():
 	_is_enabled = true
 	_controller = _libcontroller.DebugControllerConfig.new()
 
-func _process(_delta):
-	if not _is_enabled:
+
+func _input(event):
+	if not is_enabled():
 		return
 	
-	if Input.is_action_just_pressed('ui_up'):
+	if event.is_action_pressed('ui_up'):
 		_controller.n_handler(_libcontroller.ControllerInputAction.PRESSED)
-	if Input.is_action_just_pressed('ui_down'):
+	if event.is_action_pressed('ui_down'):
 		_controller.s_handler(_libcontroller.ControllerInputAction.PRESSED)
-	if Input.is_action_just_pressed('ui_left'):
+	if event.is_action_pressed('ui_left'):
 		_controller.w_handler(_libcontroller.ControllerInputAction.PRESSED)
-	if Input.is_action_just_pressed('ui_right'):
+	if event.is_action_pressed('ui_right'):
 		_controller.e_handler(_libcontroller.ControllerInputAction.PRESSED)
-	if Input.is_action_just_pressed('ui_accept'):
+	if event.is_action_pressed('ui_accept'):
 		_controller.accept_handler(_libcontroller.ControllerInputAction.PRESSED)
-	if Input.is_action_just_released('ui_up'):
+	if event.is_action_released('ui_up'):
 		_controller.n_handler(_libcontroller.ControllerInputAction.RELEASED)
-	if Input.is_action_just_released('ui_down'):
+	if event.is_action_released('ui_down'):
 		_controller.s_handler(_libcontroller.ControllerInputAction.RELEASED)
-	if Input.is_action_just_released('ui_left'):
+	if event.is_action_released('ui_left'):
 		_controller.w_handler(_libcontroller.ControllerInputAction.RELEASED)
-	if Input.is_action_just_released('ui_right'):
+	if event.is_action_released('ui_right'):
 		_controller.e_handler(_libcontroller.ControllerInputAction.RELEASED)
-	if Input.is_action_just_released('ui_accept'):
+	if event.is_action_released('ui_accept'):
 		_controller.accept_handler(_libcontroller.ControllerInputAction.RELEASED)
