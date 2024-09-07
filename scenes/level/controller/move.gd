@@ -14,6 +14,16 @@ func _ready():
 	_controller = _libcontroller.MoveControllerConfig.new()
 
 
+func _unhandled_input(event):
+	if not is_enabled():
+		return
+	
+	get_viewport().set_input_as_handled()
+	
+	if event.is_action_pressed('ui_accept'):
+		_controller.accept_handler(_libcontroller.ControllerInputAction.PRESSED)
+
+
 func _process(delta):
 	if not is_enabled():
 		return
@@ -24,6 +34,7 @@ func _process(delta):
 	
 	_delta_accum = max(_delta_accum, 1)
 	
+	# TODO(minkezhang): Migrate to _unhandled_input and set state-based instead.
 	if Input.is_action_pressed('ui_right'):
 		_controller.e_handler(_libcontroller.ControllerInputAction.PRESSED)
 		_delta_accum = 0
@@ -35,7 +46,4 @@ func _process(delta):
 		_delta_accum = 0
 	if Input.is_action_pressed('ui_down'):
 		_controller.s_handler(_libcontroller.ControllerInputAction.PRESSED)
-		_delta_accum = 0
-	if Input.is_action_just_pressed('ui_accept'):
-		_controller.accept_handler(_libcontroller.ControllerInputAction.PRESSED)
 		_delta_accum = 0
