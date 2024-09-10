@@ -15,10 +15,10 @@ func _interact_requested_handler(
 	c: Character,
 	target: Vector2i,
 ):
-	# static event handler
+	# Process static (i.e. tooltip / pop-up) events.
 	if $Metadata/Events/Interactions.events.has(target):
 		$Metadata/Events/Interactions.events[target].execute()
-	# TODO(minkezhang): dynamic event handler (i.e. Characters)
+	# TODO(minkezhang): dynamic event handler (e.g. character dialog trees)
 
 
 func _target_requested_handler(
@@ -39,13 +39,16 @@ func _target_requested_handler(
 
 
 func _target_reached_handler(
-	_c: Character,
+	c: Character,
 	target: Vector2i,
 ):
 	$Metadata/Obstacles.lookup.mark([target])
 	if target in _moves:
 		$Metadata/Obstacles.lookup.clear([_moves[target]])
 		_moves.erase(target)
+	
+	if c == $Characters/Max and $Metadata/Events/LocationTriggers.events.has(target):
+		$Metadata/Events/LocationTriggers.events[target].execute()
 
 
 func _character_created_handler(c: Character, p: Vector2i):

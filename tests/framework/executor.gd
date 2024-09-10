@@ -24,6 +24,8 @@ func _ready():
 		_libeventtest.EventTimer.new(),
 		_libeventtest.Chain.new(),
 		_libeventtest.Serialized.new(),
+		_libeventtest.Singleton.new(),
+		_libeventtest.Filter.new(),
 	]
 	
 	var s = _libframework.S.new()

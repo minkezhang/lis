@@ -1,6 +1,7 @@
 extends Node
 
 const _libframework = preload('res://tests/framework/framework.gd')
+const _libworkload = preload('res://lib/event/workload.gd')
 const _libevent = preload('res://lib/event/event.gd')
 
 
@@ -36,6 +37,60 @@ class Chain extends _libframework.T:
 		return g
 
 
+class Filter extends _libframework.SingletonT:
+	func _init():
+		super('event/filter')
+	
+	func run() -> Array:
+		var x = {'pre': false, 'post': false}
+		var pre = func() -> bool:
+			x['pre'] = true
+			return true
+		var post = func() -> bool:
+			x['post'] = true
+			return true
+		var f = func() -> bool:
+			return false
+		
+		var e = _libevent.E.new(pre).chain(
+			_libevent.E.new(f).chain(
+			_libevent.E.new(post)))
+		
+		await e.execute()
+		
+		return [
+			_libframework.R.new('pre', x['pre'] == true, true, x['pre']),
+			_libframework.R.new('post', x['post'] == false, false, x['post']),
+		]
+
+
+class Singleton extends _libframework.SingletonT:
+	func _init():
+		super('event/singleton')
+	
+	func run() -> Array:
+		var x = {'e': 0, 'd': 0}
+		
+		var f = func() -> bool:
+			x['e'] += 1
+			return true
+		
+		var g = func() -> bool:
+			x['d'] += 1
+			return true
+		
+		var e = _libevent.E.new(_libworkload.Singleton()).chain(_libevent.E.new(f))
+		var d = _libevent.E.new(_libworkload.Singleton()).chain(_libevent.E.new(g))
+
+		await e.execute()
+		await e.execute()
+		await d.execute()
+		
+		return [
+			_libframework.R.new('e.execute()', x['e'] == 1, 1, x['e']),
+			_libframework.R.new('d.execute()', x['d'] == 1, 1, x['d']),
+		]
+
 class Serialized extends _libframework.SingletonT:
 	func _init():
 		super('event/serialized')
@@ -46,7 +101,7 @@ class Serialized extends _libframework.SingletonT:
 			await root().get_tree().create_timer(1.0).timeout
 			x['val'] += 1
 			return true
-		var e = _libevent.E.new(f, false, true)
+		var e = _libevent.E.new(f, true)
 		
 		e.execute()
 		e.execute()

@@ -7,13 +7,6 @@ const _libevent = preload('res://lib/event/event.gd')
 const _libworkload = preload('res://lib/event/workload.gd')
 
 var _EVENT_TRIGGERED_HANDLER_LOOKUP = {}
-var _TARGET_REACHED_HANDLER_LOOKUP = {}
-
-
-func _target_reached_handler(c: Character, p: Vector2i):
-	if [c, p] in _TARGET_REACHED_HANDLER_LOOKUP:
-		for eid in _TARGET_REACHED_HANDLER_LOOKUP[[c, p]]:
-			SignalBus.event_triggered.emit(eid)
 
 
 func _event_triggered_handler(eid: String):
@@ -32,12 +25,6 @@ func _ready():
 		15 * _libgeo.GRID_DIMENSION * $Camera.zoom.x,
 		10 * _libgeo.GRID_DIMENSION * $Camera.zoom.y,
 	))
-	
-	_TARGET_REACHED_HANDLER_LOOKUP = {
-		[$Map/Characters/Max, Vector2i(38, 27)]: [
-			'START_TIMER',
-		],
-	}
 	
 	_EVENT_TRIGGERED_HANDLER_LOOKUP = {
 		'LEVEL_LOADED': [
@@ -70,20 +57,25 @@ func _ready():
 		],
 	}
 	
+	$Map/Metadata/Events/LocationTriggers.events = {
+		Vector2i(38, 27): _libevent.E.new(_libworkload.Singleton()).chain(
+			_libevent.E.new(func(): SignalBus.event_triggered.emit('START_TIMER')),
+		),
+	}
+	
 	$Map/Metadata/Events/Interactions.events = {
 		Vector2i(38, 24): _libevent.E.new(_libworkload.DialogRenderer(
 			$Dialog,
 			_libscript.SCRIPT['FOREST:SIGN:00'],
 		)),
-		Vector2i(13, 9): null,
-		Vector2i(12, 2): null,
-		Vector2i(12, 3): null,
+		Vector2i(13, 9): null,  # TODO(minkezhang)
+		Vector2i(12, 2): null,  # TODO(minkezhang)
+		Vector2i(12, 3): null,  # TODO(minkezhang)
 	}
 	
 	$Map/Characters/Max.speed = 2
 	
 	SignalBus.event_triggered.connect(_event_triggered_handler)
-	SignalBus.target_reached.connect(_target_reached_handler)
 	
 	SignalBus.event_triggered.emit('LEVEL_LOADED')
 

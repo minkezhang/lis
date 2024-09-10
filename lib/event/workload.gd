@@ -4,6 +4,28 @@ const _libevent = preload('res://lib/event/event.gd')
 const _libdialog = preload('res://lib/dialog.gd')
 
 
+static func Singleton() -> Callable:
+	var s = _Singleton.new()
+	var f = func() -> bool:
+		return s.payload()
+	return f
+
+
+class _Singleton:
+	var _has_run: bool
+	
+	func _init():
+		_has_run = false
+	
+	func payload() -> bool:
+		var succ = true
+		if _has_run:
+			succ = false
+		_has_run = true
+
+		return succ
+
+
 static func Timer(n: Node, time_sec: float) -> Callable:
 	var f = func() -> bool:
 		await n.get_tree().create_timer(time_sec).timeout
