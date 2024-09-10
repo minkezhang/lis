@@ -5,27 +5,29 @@ const _libdialog = preload('res://lib/dialog.gd')
 
 
 static func Timer(n: Node, time_sec: float) -> Callable:
-	var f = func():
+	var f = func() -> bool:
 		await n.get_tree().create_timer(time_sec).timeout
+		return true
 	
 	return f
 
 
 static func EventEmitter(eid: String) -> Callable:
-	var f = func():
+	var f = func() -> bool:
 		SignalBus.event_triggered.emit(eid)
+		return true
 	
 	return f
 
 
 static func DialogRenderer(n: Node, l: _libdialog.Line) -> Callable:
-	return func():
-		await _DialogRenderer.new(n, l).payload()
+	return func() -> bool:
+		return await _DialogRenderer.new(n, l).payload()
 
 
 static func Animator(n: Node, animations: Array):
-	return func():
-		await _Animator.new(n, animations).payload()
+	return func() -> bool:
+		return await _Animator.new(n, animations).payload()
 
 
 class AnimatorConfig:
@@ -48,7 +50,7 @@ class _DialogRenderer:
 		_n = n
 		_l = l
 	
-	func payload():
+	func payload() -> bool:
 		var h = func(lid: String):
 			if lid == _l.uuid():
 				_dialog_finished.emit()
@@ -59,6 +61,7 @@ class _DialogRenderer:
 		await _dialog_finished
 	
 		SignalBus.eof_reached.disconnect(h)
+		return true
 
 
 class _Animator:
@@ -69,10 +72,11 @@ class _Animator:
 		_n = n
 		_animations = animations
 	
-	func payload():
+	func payload() -> bool:
 		var l = _animations.duplicate()
 		while l.size():
 			var a = l.pop_front()
 			var t = _n.get_tree().create_tween()
 			t.tween_property(_n, a._property, a._value, a._duration)
 			await t.finished
+		return true

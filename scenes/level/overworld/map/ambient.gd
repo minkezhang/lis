@@ -51,7 +51,7 @@ class _Lightning:
 			],
 		).call()
 	
-	func payload():
+	func payload() -> bool:
 		var t = Timer.new()
 		t.one_shot = true
 		
@@ -67,9 +67,11 @@ class _Lightning:
 		
 		t.timeout.connect(f)
 		t.start(1.0 / _FREQUENCY)
+		
+		return true
 
 
 func _ready():
 	color = _COLORS[mode]
 	
-	_libevent.E.new(func(): _Lightning.new(self).payload()).execute()
+	_libevent.E.new(func() -> bool: return _Lightning.new(self).payload()).execute()

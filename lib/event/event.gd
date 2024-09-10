@@ -22,7 +22,7 @@ const _libuuid = preload('res://lib/uuid.gd')
 ##   await E(func(): return).execute()
 class E extends _libuuid.UUID:
 	var _next: E
-	var _f: Callable  # func(done: Signal)
+	var _f: Callable  # func(done: Signal) -> bool
 	
 	var _is_singleton: bool
 	var _is_valid: bool
@@ -47,21 +47,22 @@ class E extends _libuuid.UUID:
 			_next.chain(e)
 		return self
 	
-	func execute():
+	func execute() -> bool:
 		if not _is_valid:
-			return
+			return false
 		
 		if _is_serialized and _is_running:
-			return
+			return false
 		
 		_is_running = true
 		
 		if _is_singleton:
 			_is_valid = false
 		
-		await _f.call()
+		var succ = await _f.call()
 		
-		if _next != null:
-			await _next.execute()
+		if succ and _next != null:
+			succ = await _next.execute()
 		
 		_is_running = false
+		return succ

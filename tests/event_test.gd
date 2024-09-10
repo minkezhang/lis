@@ -34,7 +34,6 @@ class Chain extends _libframework.T:
 			r = r._next
 		
 		return g
-	
 
 
 class Serialized extends _libframework.SingletonT:
@@ -43,9 +42,10 @@ class Serialized extends _libframework.SingletonT:
 	
 	func run() -> Array:
 		var x = {'val': 0}
-		var f = func():
+		var f = func() -> bool:
 			await root().get_tree().create_timer(1.0).timeout
 			x['val'] += 1
+			return true
 		var e = _libevent.E.new(f, false, true)
 		
 		e.execute()
@@ -64,8 +64,9 @@ class Simple extends _libframework.SingletonT:
 	
 	func run() -> Array:
 		var x = {'val': false}
-		var f = func():
+		var f = func() -> bool:
 			x['val'] = true
+			return true
 		await _libevent.E.new(f).execute()
 		
 		return [
@@ -83,14 +84,16 @@ class EventTimer extends _libframework.SingletonT:
 			'-INF',
 		]
 		
-		var fa = func():
+		var fa = func() -> bool:
 			# Ensure we can tell if _bf is executing concurrently and therefore
 			# returning early.
 			await root().get_tree().create_timer(1.0).timeout
 			ts[0] = Time.get_ticks_usec()
-		var fb = func():
+			return true
+		var fb = func() -> bool:
 			await root().get_tree().create_timer(0.5).timeout
 			ts[1] = Time.get_ticks_usec()
+			return true
 		
 		var e = _libevent.E.new(fa).chain(
 			_libevent.E.new(fb),
