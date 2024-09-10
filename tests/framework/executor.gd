@@ -34,4 +34,7 @@ func _ready():
 		) + tests
 	)
 	
+	# Allow test suite to finish reporting.
+	await get_tree().create_timer(2.0).timeout
+	
 	get_tree().quit()
