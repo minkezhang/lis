@@ -37,6 +37,9 @@ static var SCRIPT = {
 	'FOREST:MAX:03': _libdialog.Line.new(_libdialog.C.MAX, [
 		'Whoa! No!',
 	]),
+	'FOREST:SIGN:00': _libdialog.Line.new(_libdialog.C.MAX, [
+		'<-- Lighthouse',
+	]),
 	
 	# Classroom
 	'CLASSROOM:MAX:00': _libdialog.Line.new(_libdialog.C.MAX, [

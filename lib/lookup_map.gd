@@ -1,11 +1,12 @@
 extends Object
 
-class InteractionMap:
+class LookupMap:
 	var _static = {}
 	var _dynamic = {}
 	
-	func _init(s: Dictionary):
-		_static = s.duplicate()
+	func _init(s: Array):
+		for t in s:
+			_static[t] = true
 	
 	func query(v: Vector2i) -> bool:
 		return _static.get(v, false) or _dynamic.get(v, false)

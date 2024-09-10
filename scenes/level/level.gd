@@ -70,6 +70,16 @@ func _ready():
 		],
 	}
 	
+	$Map/Metadata/Events/Interactions.events = {
+		Vector2i(38, 24): _libevent.E.new(_libworkload.DialogRenderer(
+			$Dialog,
+			_libscript.SCRIPT['FOREST:SIGN:00'],
+		)),
+		Vector2i(13, 9): null,
+		Vector2i(12, 2): null,
+		Vector2i(12, 3): null,
+	}
+	
 	$Map/Characters/Max.speed = 2
 	
 	SignalBus.event_triggered.connect(_event_triggered_handler)

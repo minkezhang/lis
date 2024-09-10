@@ -7,12 +7,18 @@ const _libscript = preload('res://lib/script.gd')
 # _moves is a dict of { target: source } tuples
 var _moves: Dictionary = {}
 
+# _interactions is a dict of { target: line } tuples
+var _interactions: Dictionary = {}
+
 
 func _interact_requested_handler(
 	c: Character,
 	target: Vector2i,
 ):
-	print("DEBUG(map.gd): ", c, " requested interaction with tile ", target)
+	# static event handler
+	if $Metadata/Events/Interactions.events.has(target):
+		$Metadata/Events/Interactions.events[target].execute()
+	# TODO(minkezhang): dynamic event handler (i.e. Characters)
 
 
 func _target_requested_handler(
@@ -24,10 +30,10 @@ func _target_requested_handler(
 	var d = (source - target).abs()
 	assert(d.x + d.y == 1, "source must be adjacent to target")
 	
-	var is_free = not $Metadata/Obstacles.map.query(target)
+	var is_free = not $Metadata/Obstacles.lookup.query(target)
 	if is_free:
 		# Reserve target space.
-		$Metadata/Obstacles.map.mark([source, target])
+		$Metadata/Obstacles.lookup.mark([source, target])
 		_moves[target] = source
 	c.animate_move(o, is_free)
 
@@ -36,9 +42,9 @@ func _target_reached_handler(
 	_c: Character,
 	target: Vector2i,
 ):
-	$Metadata/Obstacles.map.mark([target])
+	$Metadata/Obstacles.lookup.mark([target])
 	if target in _moves:
-		$Metadata/Obstacles.map.clear([_moves[target]])
+		$Metadata/Obstacles.lookup.clear([_moves[target]])
 		_moves.erase(target)
 
 
