@@ -404,7 +404,7 @@ script = ExtResource("5_q02i5")
 
 [node name="Interactions" type="TileMapLayer" parent="Metadata/Events"]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAAmABgAAAAAAAAAAAANAAkAAAAAAAAAAAAMAAIAAAAAAAAAAAAMAAMAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAmABgAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_xat4a")
 script = ExtResource("9_nra1u")
 
