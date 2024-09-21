@@ -2,6 +2,7 @@ extends Object
 
 const _libevent = preload('res://lib/event/event.gd')
 const _libdialog = preload('res://lib/dialog.gd')
+const _libsplash = preload('res://lib/splash.gd')
 
 
 static func Singleton() -> Callable:
@@ -47,6 +48,11 @@ static func DialogRenderer(n: Node, l: _libdialog.Line) -> Callable:
 		return await _DialogRenderer.new(n, l).payload()
 
 
+static func SplashRender(n: Node, s: _libsplash.Splash) -> Callable:
+	return func() -> bool:
+		return await _SplashRenderer.new(n, s).payload()
+
+
 static func Animator(n: Node, animations: Array):
 	return func() -> bool:
 		return await _Animator.new(n, animations).payload()
@@ -61,6 +67,29 @@ class AnimatorConfig:
 		_property = p
 		_value = v
 		_duration = d
+
+
+class _SplashRenderer:
+	var _s: _libsplash.Splash
+	var _n: Node
+	signal _splash_finished
+	
+	func _init(n: Node, s: _libsplash.Splash):
+		_n = n
+		_s = s
+	
+	func payload() -> bool:
+		var h = func(tid: String):
+			if tid == _s.uuid():
+				_splash_finished.emit()
+	
+		SignalBus.eof_reached.connect(h)
+		
+		_n.set_splash(_s)
+		await _splash_finished
+		
+		SignalBus.eof_reached.disconnect(h)
+		return true
 
 
 class _DialogRenderer:

@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://by4dtpw1n4rrn"]
+[gd_scene load_steps=8 format=3 uid="uid://by4dtpw1n4rrn"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_c0187"]
 [ext_resource type="PackedScene" uid="uid://ufi28gyvsh5g" path="res://scenes/level/dialog/dialog.tscn" id="1_qj0l6"]
 [ext_resource type="PackedScene" uid="uid://cfgopsu06dfv5" path="res://scenes/level/controller/controller.tscn" id="2_lxrhx"]
 [ext_resource type="PackedScene" uid="uid://b6mm4qr2d1cfx" path="res://scenes/level/overworld/map/map.tscn" id="2_vatu1"]
+[ext_resource type="Texture2D" uid="uid://duuhoiueeg8q6" path="res://scenes/level/overworld/map/assets/lighthouse_sign.png" id="3_e2a8n"]
+[ext_resource type="Script" path="res://scenes/level/splash.gd" id="4_qkoxo"]
 [ext_resource type="PackedScene" uid="uid://dxtkfmi8e828v" path="res://scenes/debug/debug.tscn" id="5_arfsd"]
 
 [node name="Level" type="Node2D"]
@@ -16,8 +18,17 @@ zoom = Vector2(5, 5)
 
 [node name="Map" parent="." instance=ExtResource("2_vatu1")]
 
-[node name="Dialog" parent="." instance=ExtResource("1_qj0l6")]
+[node name="Overlay" type="Node2D" parent="."]
+
+[node name="Splash" type="Node2D" parent="Overlay"]
+z_index = 8
+script = ExtResource("4_qkoxo")
+
+[node name="Label" type="Sprite2D" parent="Overlay/Splash"]
+texture = ExtResource("3_e2a8n")
+
+[node name="Dialog" parent="Overlay" instance=ExtResource("1_qj0l6")]
 z_index = 8
 
-[node name="Debug" parent="." instance=ExtResource("5_arfsd")]
+[node name="Debug" parent="Overlay" instance=ExtResource("5_arfsd")]
 z_index = 8

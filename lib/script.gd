@@ -4,6 +4,11 @@ extends Object
 ## Pulled from https://life-is-strange.fandom.com/wiki/Episode_1:_Chrysalis_-_Script.
 
 const _libdialog = preload('res://lib/dialog.gd')
+const _libsplash = preload('res://lib/splash.gd')
+
+static var SPLASH = {
+	'FOREST:SIGN:00': _libsplash.Splash.new('res://scenes/level/overworld/map/assets/lighthouse_sign.png'),
+}
 
 static var SCRIPT = {
 	'NULL:MAX:LOREMIPSUM': _libdialog.Line.new(
@@ -36,9 +41,6 @@ static var SCRIPT = {
 	]),
 	'FOREST:MAX:03': _libdialog.Line.new(_libdialog.C.MAX, [
 		'Whoa! No!',
-	]),
-	'FOREST:SIGN:00': _libdialog.Line.new(_libdialog.C.MAX, [
-		'<-- Lighthouse',
 	]),
 	
 	# Classroom

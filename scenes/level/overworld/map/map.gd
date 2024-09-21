@@ -7,12 +7,9 @@ const _libscript = preload('res://lib/script.gd')
 # _moves is a dict of { target: source } tuples
 var _moves: Dictionary = {}
 
-# _interactions is a dict of { target: line } tuples
-var _interactions: Dictionary = {}
-
 
 func _interact_requested_handler(
-	c: Character,
+	_c: Character,
 	target: Vector2i,
 ):
 	# Process static (i.e. tooltip / pop-up) events.

@@ -39,7 +39,7 @@ func _ready():
 		],
 		'START_DIALOG': [
 			_libevent.E.new(_libworkload.DialogRenderer(
-				$Dialog,
+				$Overlay/Dialog,
 				_libscript.SCRIPT['FOREST:MAX:00'],
 			)).chain(_libevent.E.new(
 				func(): SignalBus.enable_controller_mode_requested.emit(
@@ -64,13 +64,10 @@ func _ready():
 	}
 	
 	$Map/Metadata/Events/Interactions.events = {
-		Vector2i(38, 24): _libevent.E.new(_libworkload.DialogRenderer(
-			$Dialog,
-			_libscript.SCRIPT['FOREST:SIGN:00'],
+		Vector2i(38, 24): _libevent.E.new(_libworkload.SplashRender(
+			$Overlay/Splash,
+			_libscript.SPLASH['FOREST:SIGN:00'],
 		)),
-		Vector2i(13, 9): null,  # TODO(minkezhang)
-		Vector2i(12, 2): null,  # TODO(minkezhang)
-		Vector2i(12, 3): null,  # TODO(minkezhang)
 	}
 	
 	$Map/Characters/Max.speed = 2
@@ -82,7 +79,7 @@ func _ready():
 
 func _process(_delta):
 	$Camera.global_position = $Map/Characters/Max.global_position
-	$Dialog.position = $Camera.position
-	$Debug.position = $Camera.position + Vector2(64, -56)
+	$Overlay.position = $Camera.position
+	$Overlay/Debug.position = Vector2(64, -56)
 	$Map/Environment/Ambient.size = DisplayServer.window_get_size()
 	$Map/Environment/Ambient.position = $Camera.position - ($Map/Environment/Ambient.size / 2)

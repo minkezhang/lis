@@ -92,7 +92,7 @@ class LineReader extends _libuuid.UUID:
 	func seek(i: int):
 		_index = i
 	
-	func eof():
+	func eof() -> bool:
 		return _index >= len(_ls)
 	
 	func get_next_line() -> String:
